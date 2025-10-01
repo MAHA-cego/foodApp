@@ -2,9 +2,9 @@ import brightnessIcon from "../assets/iconmonstr-brightness-10.svg";
 
 function Nav() {
   return (
-    <nav className="flex flex-row justify-between mx-[40px] mt-[30px]  ">
-      <h2 className="text-[2rem] font-medium">Food.</h2>
-      <div className="w-[30%]">
+    <nav className="grid grid-cols-[2fr_1fr] mx-[40px] mt-[30px]  ">
+      <h2 className="grid-start-1 text-[2rem] font-medium">Food.</h2>
+      <div className="grid-start-2">
         <ul className="flex flex-row justify-between text-[1.25rem]">
           <li className="">
             <a href="">Upload</a>
