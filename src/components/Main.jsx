@@ -1,4 +1,5 @@
 import magnifier from "../assets/iconmonstr-magnifier-lined.svg";
+import RecipeMain from "../components/RecipeMain.jsx";
 
 function Main() {
   return (
@@ -37,7 +38,9 @@ function Main() {
             </form>
           </div>
         </div>
-        <div></div>
+        <div>
+          <RecipeMain />
+        </div>
         <div className="mt-[120px] grid grid-cols-[7fr_3fr_2fr]">
           <div className="col-start-2 flex flex-col gap-[36px]">
             <h2 className="text-[3rem] font-medium leading-14">
