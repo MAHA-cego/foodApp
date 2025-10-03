@@ -8,6 +8,7 @@ import NewRecipePage from "./pages/NewRecipePage.jsx";
 import RecipePage from "./pages/RecipePage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
+import TestSalwa from "./components/TestSalwa.jsx";
 import "@fontsource-variable/inter";
 
 createRoot(document.getElementById("root")).render(
@@ -19,6 +20,7 @@ createRoot(document.getElementById("root")).render(
         <Route path="/recipe" element={<RecipePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/testsalwa" element={<TestSalwa />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>

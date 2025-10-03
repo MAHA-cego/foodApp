@@ -40,6 +40,9 @@ function Main() {
         </div>
         <div>
           <RecipeMain />
+          <RecipeMain />
+          <RecipeMain />
+          <RecipeMain />
         </div>
         <div className="mt-[120px] grid grid-cols-[7fr_3fr_2fr]">
           <div className="col-start-2 flex flex-col gap-[36px]">
