@@ -1,41 +1,94 @@
+import { useRef, useState } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger);
+
 import magnifier from "../assets/iconmonstr-magnifier-lined.svg";
 import RecipeMain from "../components/RecipeMain.jsx";
 
 function Main() {
+  const titleRef = useRef();
+  const [scrolled, setScrolled] = useState(false);
+
+  useGSAP(() => {
+    const trigger = ScrollTrigger.create({
+      trigger: titleRef.current,
+      start: "top-=250 top",
+      end: "bottom top",
+      onUpdate: (self) => {
+        const threshold = 0.05;
+        if (self.progress > threshold && !scrolled) {
+          setScrolled(true);
+        } else if (self.progress <= threshold && scrolled) {
+          setScrolled(false);
+        }
+      },
+    });
+
+    return () => {
+      trigger.kill();
+    };
+  }, [scrolled]);
+
   return (
     <>
-      <div className="mx-[40px] mt-[120px]">
-        <div className="grid grid-cols-[4fr_1fr_1fr]  items-end pb-[120px] border-b-3">
-          <h1 className="text-[18.75rem] col-start-1 translate-x-[-26px] translate-y-[32px] self-end leading-none">
-            Food.
-          </h1>
-          <div className="col-start-2">
-            <p className="text-[1.25rem] italic font-light">Sorting :</p>
-            <button className="text-[1.25rem]">Alphabetical</button>
-          </div>
-          <div className="col-start-3 min-w-0">
-            <form action="" className="flex flex-col ">
-              <label
-                htmlFor="search"
-                className="text-[1.25rem] italic font-light"
-              >
-                Search :
-              </label>
-              <div className="flex flex-row">
-                <input
-                  type="text"
-                  name="search"
-                  id="search"
-                  autoComplete="off"
-                  spellCheck="false"
-                  placeholder="..."
-                  className="text-[1.25rem] border-none outline-none w-full"
-                />
-                <button type="submit" className="ml-2">
-                  <img src={magnifier} alt="Search" width="18" height="18" />
-                </button>
-              </div>
-            </form>
+      <div className="mx-[40px] overflow-hidden">
+        <div className="mt-[200px]">
+          <div
+            className={`grid grid-cols-[4fr_1fr_1fr] items-end pb-[120px] transition-all duration-700 ease-in-out ${
+              scrolled ? "border-b-3 border-black" : "border-none"
+            }`}
+          >
+            <h1
+              ref={titleRef}
+              className={`
+                col-start-1 leading-none transition-all duration-700 ease-in-out
+                translate-x-[-26px] translate-y-[32px]
+                ${scrolled ? "text-[18.75rem] mt-0" : "text-[25rem] mt-[250px]"}
+              `}
+            >
+              Food.
+            </h1>
+            <div
+              className={`
+                col-start-2 transition-opacity duration-700 ease-in-out
+                ${scrolled ? "opacity-100" : "opacity-0"}
+              `}
+            >
+              <p className="text-[1.25rem] italic font-light">Sorting :</p>
+              <button className="text-[1.25rem]">Alphabetical</button>
+            </div>
+            <div
+              className={`
+                col-start-3 min-w-0 transition-opacity duration-700 ease-in-out
+                ${scrolled ? "opacity-100" : "opacity-0"}
+              `}
+            >
+              <form action="" className="flex flex-col">
+                <label
+                  htmlFor="search"
+                  className="text-[1.25rem] italic font-light"
+                >
+                  Search :
+                </label>
+                <div className="flex flex-row">
+                  <input
+                    type="text"
+                    name="search"
+                    id="search"
+                    autoComplete="off"
+                    spellCheck="false"
+                    placeholder="..."
+                    className="text-[1.25rem] border-none outline-none w-full"
+                  />
+                  <button type="submit" className="ml-2">
+                    <img src={magnifier} alt="Search" width="18" height="18" />
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
         <div>
@@ -51,7 +104,7 @@ function Main() {
             </h2>
             <p className="text-[1.5rem] text-darkGrey leading-8">
               Recipes are being added every day by our users, be sure to drop by
-              later.{" "}
+              later.
             </p>
             <h3 className="text-[2rem] underline mt-[4px]">Add your own !</h3>
           </div>

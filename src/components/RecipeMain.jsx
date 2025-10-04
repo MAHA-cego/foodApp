@@ -1,6 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import arrow from "../assets/iconmonstr-arrow-right-lined.svg";
 import eggFriedRiceImg from "../assets/egg-fried-rice-main-preview.webp";
+
+gsap.registerPlugin(ScrollTrigger);
 
 function RecipeMain() {
   const [hovered, setHovered] = useState(false);
@@ -10,6 +14,7 @@ function RecipeMain() {
   const [imgOffset, setImgOffset] = useState({ x: 0, y: 0 });
 
   const containerRef = useRef(null);
+  const recipeRef = useRef(null);
 
   const handleMouseMove = (e) => {
     if (!containerRef.current) return;
@@ -45,10 +50,32 @@ function RecipeMain() {
     return () => cancelAnimationFrame(anim);
   }, [mousePos, hovered]);
 
+  useEffect(() => {
+    gsap.fromTo(
+      recipeRef.current,
+      { x: 100, opacity: 0 },
+      {
+        x: 0,
+        opacity: 1,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: recipeRef.current,
+          start: "top 80%",
+          toggleActions: "play none none none",
+          once: true,
+        },
+      }
+    );
+  }, []);
+
   return (
     <>
       <div
-        ref={containerRef}
+        ref={(el) => {
+          containerRef.current = el;
+          recipeRef.current = el;
+        }}
         className="relative grid grid-cols-[2fr_3fr_6fr_1fr] h-[6.25rem] border-b text-[1.5rem]"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => {
