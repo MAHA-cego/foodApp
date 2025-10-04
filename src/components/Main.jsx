@@ -34,10 +34,10 @@ function Main() {
 
   return (
     <>
-      <div className="mx-[40px] overflow-hidden">
-        <div className="mt-[200px]">
+      <div className="mx-[2.5rem] overflow-hidden">
+        <div className="mt-[12.5rem]">
           <div
-            className={`grid grid-cols-[4fr_1fr_1fr] items-end pb-[120px] transition-all duration-700 ease-in-out ${
+            className={`grid grid-cols-[4fr_1fr_1fr] items-end pb-[7.5rem] transition-all duration-700 ease-in-out ${
               scrolled ? "border-b-3 border-black" : "border-none"
             }`}
           >
@@ -45,8 +45,12 @@ function Main() {
               ref={titleRef}
               className={`
                 col-start-1 leading-none transition-all duration-700 ease-in-out
-                translate-x-[-26px] translate-y-[32px]
-                ${scrolled ? "text-[18.75rem] mt-0" : "text-[25rem] mt-[250px]"}
+                translate-x-[-1.625rem] translate-y-[2rem]
+                ${
+                  scrolled
+                    ? "text-[18.75rem] mt-0"
+                    : "text-[25rem] mt-[15.625rem]"
+                }
               `}
             >
               Food.
@@ -97,8 +101,8 @@ function Main() {
           <RecipeMain />
           <RecipeMain />
         </div>
-        <div className="mt-[120px] grid grid-cols-[7fr_3fr_2fr]">
-          <div className="col-start-2 flex flex-col gap-[36px]">
+        <div className="mt-[7.5rem] grid grid-cols-[7fr_3fr_2fr]">
+          <div className="col-start-2 flex flex-col gap-[2.25rem]">
             <h2 className="text-[3rem] font-medium leading-14">
               Did not find <br /> what you needed?
             </h2>
@@ -106,7 +110,9 @@ function Main() {
               Recipes are being added every day by our users, be sure to drop by
               later.
             </p>
-            <h3 className="text-[2rem] underline mt-[4px]">Add your own !</h3>
+            <h3 className="text-[2rem] underline mt-[0.25rem]">
+              Add your own !
+            </h3>
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 function Footer() {
   return (
     <>
-      <footer className="grid grid-cols-[1fr_7fr_4fr] mt-[240px] mb-[34px] pt-[48px] border-t mx-[40px] text-[1.25rem]">
+      <footer className="grid grid-cols-[1fr_7fr_4fr] mt-[15rem] mb-[2.125rem] pt-[3rem] border-t mx-[2.5rem] text-[1.25rem]">
         <p className="col-start-2 content-end">
           Life is too short to eat bad{" "}
           <a href="" className="font-medium underline">
