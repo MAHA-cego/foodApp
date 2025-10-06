@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
 import App from "./App.jsx";
-import MainPage from "./pages/mainPage.jsx";
+import MainPage from "./pages/MainPage.jsx";
 import NewRecipePage from "./pages/NewRecipePage.jsx";
 import RecipePage from "./pages/RecipePage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
