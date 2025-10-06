@@ -3,8 +3,8 @@ import eggFriedRice from "../assets/egg-fried-rice-main-preview.webp";
 function Recipe() {
   return (
     <>
-      <body className="">
-        <div className="mx-[2.5rem] mt-[13rem]">
+      <div className="mx-[2.5rem]">
+        <div className="mt-[13rem]">
           <div className="grid grid-cols-[7fr_5fr] gap-[5.5rem]">
             <img src={eggFriedRice} alt="" />
             <div className="flex flex-col h-full">
@@ -55,7 +55,86 @@ function Recipe() {
             </div>
           </div>
         </div>
-      </body>
+        <div className="flex flex-col mt-30 pt-16 border-t gap-32">
+          <div className="grid grid-cols-[1fr_5fr_5fr_1fr]">
+            <div className="col-start-2 flex flex-col gap-3 ">
+              <h2 className="text-3xl font-medium">Ingredients :</h2>
+              <p className="text-xl text-darkGrey font-light">For 2 servings</p>
+            </div>
+            <ul className="col-start-3 text-xl leading-12">
+              <li>300 g cooked white rice (cold, ideally day-old)</li>
+              <li>2 large eggs (approx. 110 g total)</li>
+              <li>
+                130 g mixed vegetables (e.g. carrots, peas, bell pepper, corn)
+              </li>
+              <li>30 g green onions (about 2 stalks), chopped</li>
+              <li>6 g garlic (about 2 cloves), minced</li>
+              <li>30 mL soy sauce (2 tablespoons)</li>
+              <li>15 mL vegetable oil (1 tablespoon)</li>
+              <li>Salt and pepper to taste</li>
+              <li>
+                Optional : A few drops of sesame oil, chili flakes, or sesame
+                seeds for garnish
+              </li>
+            </ul>
+          </div>
+          <div className="grid grid-cols-[1fr_5fr_5fr_1fr]">
+            <div className="col-start-2">
+              <h2 className="text-3xl font-medium">Instructions :</h2>
+            </div>
+            <div className="col-start-3 text-xl">
+              <ol className="flex flex-col gap-16">
+                <li className="flex flex-col gap-4">
+                  <p className="italic text-darkGrey self-end">
+                    Prepare the ingredients
+                  </p>
+                  <p>
+                    Beat the eggs in a bowl. Dice or thaw vegetables as needed.
+                    Use cold rice and break up clumps with your hands or a fork.
+                  </p>
+                </li>
+                <li className="flex flex-col gap-4">
+                  <p className="italic text-darkGrey self-end">
+                    Scramble the eggs
+                  </p>
+                  <p>
+                    Heat 1 tsp of the oil in a large skillet or wok over medium
+                    heat. Pour in the eggs, scramble gently until just cooked,
+                    then transfer to a plate.
+                  </p>
+                </li>
+                <li className="flex flex-col gap-4">
+                  <p className="italic text-darkGrey self-end">
+                    Cook the vegetables
+                  </p>
+                  <p>
+                    Add the remaining oil to the pan. Stir-fry garlic for 30
+                    seconds, then add the mixed vegetables. Cook for 3–4 minutes
+                    until tender.
+                  </p>
+                </li>
+                <li className="flex flex-col gap-4">
+                  <p className="italic text-darkGrey self-end">
+                    Stir fry and season
+                  </p>
+                  <p>
+                    Return the scrambled eggs to the pan. Pour in soy sauce and
+                    add green onions. Stir-fry everything for 1–2 more minutes.
+                    Season with salt and pepper to taste.
+                  </p>
+                </li>
+                <li className="flex flex-col gap-4">
+                  <p className="italic text-darkGrey self-end">Serve</p>
+                  <p>
+                    Serve hot, garnished with optional sesame seeds or a drizzle
+                    of sesame oil.
+                  </p>
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 }

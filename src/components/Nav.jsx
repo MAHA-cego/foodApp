@@ -2,8 +2,10 @@ import brightnessIcon from "../assets/iconmonstr-brightness-10.svg";
 
 function Nav() {
   return (
-    <nav className="grid grid-cols-[2fr_1fr] mx-[2.5rem] mt-[1.875rem]  fixed w-full top-0 z-100">
-      <h2 className="grid-start-1 text-[2rem] font-medium">Food.</h2>
+    <nav className="grid grid-cols-[2fr_1fr] px-[2.5rem] pt-[1.875rem]  fixed w-full top-0 z-100 ">
+      <h2 className="grid-start-1 text-[2rem] font-medium -translate-0.5">
+        Food.
+      </h2>
       <div className="grid-start-2">
         <ul className="flex flex-row justify-between text-[1.25rem]">
           <li className="">
