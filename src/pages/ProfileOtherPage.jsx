@@ -1,15 +1,15 @@
 import Nav from "../components/Nav.jsx";
 import Footer from "../components/Footer.jsx";
-import NewRecipe from "../components/NewRecipe.jsx";
+import ProfileOther from "../components/ProfileOther.jsx";
 
-function NewRecipePage() {
+function ProfileOtherPage() {
   return (
     <>
       <Nav />
-      <NewRecipe />
+      <ProfileOther />
       <Footer />
     </>
   );
 }
 
-export default NewRecipePage;
+export default ProfileOtherPage;

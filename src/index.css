@@ -20,3 +20,30 @@
 body {
   font-family: "Inter Variable", sans-serif;
 }
+
+.newRecipeSubtitle {
+  font-size: 2rem;
+  color: var(--color-darkGrey);
+  grid-column: 0 / 1;
+}
+
+.newRecipeEl {
+  display: grid;
+  grid-template-columns: 3fr 7fr;
+}
+
+.newRecipeEl2 {
+  display: grid;
+  grid-template-columns: 3fr 6fr 1fr;
+}
+
+.newRecipeEl3 {
+  display: grid;
+  grid-template-columns: 3fr 4fr 3fr;
+}
+
+.noBox {
+  border: none;
+  outline: none;
+  background: transparent;
+}

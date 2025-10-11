@@ -6,7 +6,7 @@ import eggFriedRiceImg from "../assets/egg-fried-rice-main-preview.webp";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const RecipeProfile = forwardRef((props, ref) => {
+const RecipeOtherProfile = forwardRef((props, ref) => {
   const [hovered, setHovered] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [imgOffset, setImgOffset] = useState({ x: 0, y: 0 });
@@ -24,7 +24,7 @@ const RecipeProfile = forwardRef((props, ref) => {
     setMousePos({ x: relativeX, y: relativeY });
   };
 
-  const basePercent = { x: 24, y: -5 };
+  const basePercent = { x: 25, y: -11 };
   const basePos = useRef(getBasePos());
 
   function getBasePos() {
@@ -55,9 +55,7 @@ const RecipeProfile = forwardRef((props, ref) => {
         if (typeof ref === "function") ref(el);
         else if (ref) ref.current = el;
       }}
-      className={`grid grid-cols-[1fr_4fr] border-b text-2xl transition-all duration-300 ease-in-out pt-7 ${
-        hovered ? "h-38" : "h-24"
-      }`}
+      className="grid grid-cols-[1fr_4fr] border-b text-2xl transition-all duration-300 ease-in-out pt-7 h-24"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => {
         setHovered(false);
@@ -78,16 +76,6 @@ const RecipeProfile = forwardRef((props, ref) => {
         <h3 className="inline-block content-center font-medium hover:cursor-pointer">
           Stir fried rice
         </h3>
-        <div
-          className={`col-start-2 flex flex-row transition-opacity duration-300 text-xl gap-30 ${
-            hovered ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          <button className="hover:cursor-pointer underline">Edit</button>
-          <button className="text-darkGrey hover:cursor-pointer underline decoration-darkGrey">
-            Delete
-          </button>
-        </div>
       </div>
 
       <img
@@ -106,4 +94,4 @@ const RecipeProfile = forwardRef((props, ref) => {
   );
 });
 
-export default RecipeProfile;
+export default RecipeOtherProfile;
