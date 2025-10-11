@@ -61,16 +61,16 @@ function ProfileMain() {
           <h1 className="col-start-1 text-[15rem] leading-none font-light -translate-x-[1.45rem]">
             Recipes
           </h1>
-          <p className="col-start-2 text-4xl text-darkGrey font-light">(You)</p>
+          <p className="col-start-2 text-3xl text-darkGrey font-light">(You)</p>
         </div>
-        <div className="border-t-3 grid grid-cols-[2fr_2fr_3fr_5fr]">
-          <div className="col-start-1 mt-10 text-xl">
+        <div className="border-t-3 grid grid-cols-[2fr_2fr_1fr_7fr]">
+          <div className="col-start-1 mt-10 text-lg">
             <div>
               <p className="font-light italic">Sorting :</p>
               <button>Alphabelical</button>
             </div>
           </div>
-          <div className="col-start-2 mt-10 text-xl">
+          <div className="col-start-2 mt-10 text-lg">
             <form action="">
               <label htmlFor="search" className="font-light italic">
                 Search :
@@ -100,16 +100,16 @@ function ProfileMain() {
               ))}
               <li
                 ref={addRecipeRef}
-                className="h-24 grid grid-cols-[1fr_4fr] border-b group"
+                className="h-20 grid grid-cols-[1fr_4fr] border-b group"
               >
                 <button className="col-start-1">
                   <img
                     src={plus}
                     alt=""
-                    className="w-9 h-9 rotate-45 transition-all duration-300 ease-in-out group-hover:rotate-225"
+                    className="w-7 h-7 rotate-45 transition-all duration-300 ease-in-out group-hover:rotate-225"
                   />
                 </button>
-                <p className="col-start-2 inline-block content-center text-2xl text-darkGrey">
+                <p className="col-start-2 inline-block content-center text-xl text-darkGrey">
                   Add a recipe
                 </p>
               </li>

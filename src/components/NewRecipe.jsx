@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 import AddIngredient from "./AddIngredient.jsx";
 import AddInstruction from "./AddInstruction.jsx";
@@ -17,13 +17,20 @@ function NewRecipe() {
     }
   };
 
+  const [fileName, setFileName] = useState("");
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setFileName(file ? file.name : "");
+  };
+
   return (
     <>
       <div className="mt-53 mx-10 grid grid-cols-[1fr_9fr_1fr_1fr]">
         <div className="col-start-2 col-span-2">
           <div className="flex flex-row justify-between pb-9 border-b">
             <h1 className="text-6xl">New recipe</h1>
-            <p className="text-3xl text-darkGrey">Cédric</p>
+            <p className="text-2xl text-darkGrey">Cédric</p>
           </div>
           <form action="" className="pt-24 flex flex-col gap-20">
             <div className="newRecipeEl">
@@ -35,7 +42,7 @@ function NewRecipe() {
                 id="title"
                 name="title"
                 placeholder="Your title"
-                className="text-3xl  placeholder:italic placeholder:font-light noBox"
+                className="text-xl  placeholder:italic placeholder:font-light noBox"
               />
             </div>
             <div className="newRecipeEl">
@@ -46,7 +53,7 @@ function NewRecipe() {
                 name="description"
                 id="description"
                 placeholder="Your description"
-                className="text-2xl  placeholder:italic placeholder:font-light noBox resize-none"
+                className="text-lg  placeholder:italic placeholder:font-light noBox resize-none"
                 ref={textareaRef}
                 onInput={handleInput}
                 rows={1}
@@ -56,12 +63,24 @@ function NewRecipe() {
               <label htmlFor="picture" className="newRecipeSubtitle">
                 Picture
               </label>
-              <input type="file" id="picture" name="picture" />
+              <input
+                type="file"
+                id="picture"
+                name="picture"
+                onChange={handleFileChange}
+                className="hidden"
+              />
+              <label
+                htmlFor="picture"
+                className="italic underline hover:cursor-pointer"
+              >
+                {fileName || "Add a picture"}
+              </label>
             </div>
             <div className="newRecipeEl2">
               <p className="newRecipeSubtitle">Ingredients</p>
               <div className="flex flex-col">
-                <div className="flex flex-row text-2xl text-darkGrey pb-11">
+                <div className="flex flex-row text-lg text-darkGrey pb-11">
                   <input
                     type="number"
                     name="servings"
@@ -74,7 +93,11 @@ function NewRecipe() {
                 </div>
                 <AddIngredient />
                 <button className="pt-9">
-                  <img src={plus} alt="" className="h-6 w-6 rotate-45" />
+                  <img
+                    src={plus}
+                    alt=""
+                    className="h-4 w-4 rotate-45 hover:cursor-pointer"
+                  />
                 </button>
               </div>
             </div>
@@ -83,14 +106,18 @@ function NewRecipe() {
               <div className="col-start-2 col-span-1">
                 <AddInstruction />
                 <button className="pt-9">
-                  <img src={plus} alt="" className="h-6 w-6 rotate-45 " />
+                  <img
+                    src={plus}
+                    alt=""
+                    className="h-4 w-4 rotate-45 hover:cursor-pointer"
+                  />
                 </button>
               </div>
             </div>
             <div className="newRecipeEl3">
               <div>
                 <p className="newRecipeSubtitle">Nutrition</p>
-                <p className="text-xl text-darkGrey font-light">Per 100g</p>
+                <p className="text-lg text-darkGrey font-light">Per 100g</p>
               </div>
               <div className="w-full flex flex-col gap-9">
                 <AddNutrition id="calories" label="Calories" unit="kcal" />
@@ -106,13 +133,13 @@ function NewRecipe() {
               </div>
             </div>
             <div className="flex flex-col items-end gap-9">
-              <button className="text-3xl font-light text-darkGrey">
+              <button className="text-2xl font-light text-darkGrey hover:cursor-pointer">
                 Clear
               </button>
               <input
                 type="submit"
                 value="Create"
-                className="text-4xl font-medium"
+                className="text-3xl font-medium hover:cursor-pointer"
               />
             </div>
           </form>

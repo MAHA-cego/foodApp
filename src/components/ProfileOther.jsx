@@ -61,18 +61,18 @@ function ProfileOther() {
           <h1 className="col-start-1 text-[15rem] leading-none font-light -translate-x-[1.45rem]">
             Recipes
           </h1>
-          <p className="col-start-2 text-4xl text-darkGrey font-light">
+          <p className="col-start-2 text-3xl text-darkGrey font-light">
             (Other)
           </p>
         </div>
-        <div className="border-t-3 grid grid-cols-[2fr_2fr_3fr_5fr]">
-          <div className="col-start-1 mt-10 text-xl">
+        <div className="border-t-3 grid grid-cols-[2fr_2fr_1fr_7fr]">
+          <div className="col-start-1 mt-10 text-lg">
             <div>
               <p className="font-light italic">Sorting :</p>
               <button>Alphabelical</button>
             </div>
           </div>
-          <div className="col-start-2 mt-10 text-xl">
+          <div className="col-start-2 mt-10 text-lg">
             <form action="">
               <label htmlFor="search" className="font-light italic">
                 Search :

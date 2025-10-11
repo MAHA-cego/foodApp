@@ -61,8 +61,8 @@ function Main() {
                 ${scrolled ? "opacity-100" : "opacity-0"}
               `}
             >
-              <p className="text-[1.25rem] italic font-light">Sorting :</p>
-              <button className="text-[1.25rem]">Alphabetical</button>
+              <p className="text-lg italic font-light">Sorting :</p>
+              <button className="text-lg">Alphabetical</button>
             </div>
             <div
               className={`
@@ -71,10 +71,7 @@ function Main() {
               `}
             >
               <form action="" className="flex flex-col">
-                <label
-                  htmlFor="search"
-                  className="text-[1.25rem] italic font-light"
-                >
+                <label htmlFor="search" className="text-lg italic font-light">
                   Search :
                 </label>
                 <div className="flex flex-row">
@@ -85,7 +82,7 @@ function Main() {
                     autoComplete="off"
                     spellCheck="false"
                     placeholder="..."
-                    className="text-[1.25rem] border-none outline-none w-full"
+                    className="text-lg border-none outline-none w-full"
                   />
                   <button type="submit" className="ml-2">
                     <img src={magnifier} alt="Search" width="18" height="18" />
@@ -95,24 +92,22 @@ function Main() {
             </div>
           </div>
         </div>
-        <div>
+        <div className="z-2">
           <RecipeMain />
           <RecipeMain />
           <RecipeMain />
           <RecipeMain />
         </div>
         <div className="mt-[7.5rem] grid grid-cols-[7fr_3fr_2fr]">
-          <div className="col-start-2 flex flex-col gap-[2.25rem]">
-            <h2 className="text-[3rem] font-medium leading-14">
+          <div className="col-start-2 flex flex-col gap-6">
+            <h2 className="text-3xl font-medium leading-10">
               Did not find <br /> what you needed?
             </h2>
-            <p className="text-[1.5rem] text-darkGrey leading-8">
+            <p className="text-xl text-darkGrey leading-6">
               Recipes are being added every day by our users, be sure to drop by
               later.
             </p>
-            <h3 className="text-[2rem] underline mt-[0.25rem]">
-              Add your own !
-            </h3>
+            <h3 className="text-2xl underline mt-1">Add your own !</h3>
           </div>
         </div>
       </div>

@@ -2,10 +2,10 @@ function AddNutrition({ id, label, unit }) {
   return (
     <>
       <div className="flex flex-row justify-between w-full">
-        <label htmlFor={id} className="text-xl font-light text-darkGrey">
+        <label htmlFor={id} className="font-light text-darkGrey">
           {label}
         </label>
-        <div className="flex flex-row justify-between text-xl">
+        <div className="flex flex-row justify-between">
           <input
             type="number"
             id={id}
@@ -14,7 +14,7 @@ function AddNutrition({ id, label, unit }) {
             placeholder="..."
             min="0"
           />
-          <p>{unit}</p>
+          <p className="text-darkGrey">{unit}</p>
         </div>
       </div>
     </>

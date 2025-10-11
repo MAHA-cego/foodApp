@@ -21,10 +21,10 @@ function AddInstruction() {
             id="subtitle"
             name="subtitle"
             placeholder="Your subtitle"
-            className="text-2xl placeholder:italic placeholder:font-light noBox "
+            className="text-lg placeholder:italic placeholder:font-light noBox "
           />
           <button>
-            <img src={line} alt="" className="h-6 w-6" />
+            <img src={line} alt="" className="h-4 w-4 hover:cursor-pointer" />
           </button>
         </div>
         <textarea
@@ -34,7 +34,7 @@ function AddInstruction() {
           ref={textareaRef}
           onInput={handleInput}
           rows={1}
-          className="text-xl placeholder:italic placeholder:font-light noBox resize-none pt-9"
+          className="placeholder:italic placeholder:font-light noBox resize-none pt-9"
         ></textarea>
       </div>
     </>

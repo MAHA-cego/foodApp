@@ -24,7 +24,7 @@ const RecipeProfile = forwardRef((props, ref) => {
     setMousePos({ x: relativeX, y: relativeY });
   };
 
-  const basePercent = { x: 24, y: -5 };
+  const basePercent = { x: 34, y: -6 };
   const basePos = useRef(getBasePos());
 
   function getBasePos() {
@@ -55,8 +55,8 @@ const RecipeProfile = forwardRef((props, ref) => {
         if (typeof ref === "function") ref(el);
         else if (ref) ref.current = el;
       }}
-      className={`grid grid-cols-[1fr_4fr] border-b text-2xl transition-all duration-300 ease-in-out pt-7 ${
-        hovered ? "h-38" : "h-24"
+      className={`grid grid-cols-[1fr_4fr] border-b text-xl transition-all duration-300 ease-in-out pt-6 ${
+        hovered ? "h-34" : "h-20"
       }`}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => {
@@ -69,7 +69,7 @@ const RecipeProfile = forwardRef((props, ref) => {
         <img
           src={arrow}
           alt="Search"
-          className={`h-10 w-10 transform transition-transform duration-300 ${
+          className={`h-8 w-8 transform transition-transform duration-300 ${
             hovered ? "rotate-90" : "rotate-0"
           }`}
         />
@@ -79,7 +79,7 @@ const RecipeProfile = forwardRef((props, ref) => {
           Stir fried rice
         </h3>
         <div
-          className={`col-start-2 flex flex-row transition-opacity duration-300 text-xl gap-30 ${
+          className={`col-start-2 flex flex-row transition-opacity duration-300 text-lg gap-30 ${
             hovered ? "opacity-100" : "opacity-0"
           }`}
         >

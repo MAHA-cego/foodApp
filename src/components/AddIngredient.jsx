@@ -19,13 +19,13 @@ function AddIngredient() {
           name="ingredient"
           id="ingredient"
           placeholder="Your ingredient"
-          className="noBox text-xl italic font-light resize-none"
+          className="noBox placeholder:italic placeholder:font-light resize-none"
           ref={textareaRef}
           onInput={handleInput}
           rows={1}
         ></textarea>
         <button>
-          <img src={line} alt="" className="h-6 w-6" />
+          <img src={line} alt="" className="h-4 w-4 hover:cursor-pointer" />
         </button>
       </div>
     </>

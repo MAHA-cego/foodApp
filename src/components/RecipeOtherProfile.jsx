@@ -24,7 +24,7 @@ const RecipeOtherProfile = forwardRef((props, ref) => {
     setMousePos({ x: relativeX, y: relativeY });
   };
 
-  const basePercent = { x: 25, y: -11 };
+  const basePercent = { x: 25, y: -8.5 };
   const basePos = useRef(getBasePos());
 
   function getBasePos() {
@@ -55,7 +55,9 @@ const RecipeOtherProfile = forwardRef((props, ref) => {
         if (typeof ref === "function") ref(el);
         else if (ref) ref.current = el;
       }}
-      className="grid grid-cols-[1fr_4fr] border-b text-2xl transition-all duration-300 ease-in-out pt-7 h-24"
+      className={`grid grid-cols-[1fr_4fr] border-b text-xl transition-all duration-300 ease-in-out ${
+        hovered ? "h-24 pt-8" : "h-20 pt-6"
+      }`}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => {
         setHovered(false);
@@ -67,7 +69,7 @@ const RecipeOtherProfile = forwardRef((props, ref) => {
         <img
           src={arrow}
           alt="Search"
-          className={`h-10 w-10 transform transition-transform duration-300 ${
+          className={`h-8 w-8 transform transition-transform duration-300 ${
             hovered ? "rotate-90" : "rotate-0"
           }`}
         />
@@ -81,7 +83,7 @@ const RecipeOtherProfile = forwardRef((props, ref) => {
       <img
         src={eggFriedRiceImg}
         alt="hover"
-        className={`absolute w-60 pointer-events-none z-50 transition-all duration-300 ease-out ${
+        className={`absolute w-59 pointer-events-none z-50 transition-all duration-300 ease-out ${
           hovered && showImage ? "opacity-100" : "opacity-0"
         }`}
         style={{
