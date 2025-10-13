@@ -1,4 +1,54 @@
 {
   "users": [],
-  "recipes": []
+  "recipes": [
+    {
+      "id": "d6be",
+      "title": "Stir Fried Rice",
+      "description": "Stir-Fried Rice with Eggs and Vegetables is a quick, wholesome, and versatile dish rooted in Asian culinary traditions. Made using day-old rice for optimal texture, this dish combines fluffy scrambled eggs, vibrant vegetables, and a savory touch of soy sauce to create a well-balanced and satisfying meal. It's a great way to use up leftover rice and fridge veggies, making it both budget-friendly and nutritious. Whether enjoyed as a main course or a side dish, this stir-fry delivers flavor, color, and comfort in every bite.",
+      "picture": "egg-fried-rice-main-preview.webp",
+      "servings": "2",
+      "ingredients": [
+        "300 g cooked white rice (cold, ideally day-old)",
+        "2 large eggs (approx. 110 g total)",
+        "130 g mixed vegetables (e.g. carrots, peas, bell pepper, corn)",
+        "30 g green onions (about 2 stalks), chopped",
+        "6 g garlic (about 2 cloves), minced",
+        "30 mL soy sauce (2 tablespoons)",
+        "15 mL vegetable oil (1 tablespoon)",
+        "Salt and pepper to taste",
+        "Optional : A few drops of sesame oil, chili flakes, or sesame seeds for garnish"
+      ],
+      "instructions": [
+        {
+          "subtitle": "Prepare the ingredients",
+          "instruction": "Beat the eggs in a bowl. Dice or thaw vegetables as needed. Use cold rice and break up clumps with your hands or a fork."
+        },
+        {
+          "subtitle": "Scramble the eggs",
+          "instruction": "Heat 1 tsp of the oil in a large skillet or wok over medium heat. Pour in the eggs, scramble gently until just cooked, then transfer to a plate."
+        },
+        {
+          "subtitle": "Cook the vegetables",
+          "instruction": "Add the remaining oil to the pan. Stir-fry garlic for 30 seconds, then add the mixed vegetables. Cook for 3–4 minutes until tender."
+        },
+        {
+          "subtitle": "Stir fry and season",
+          "instruction": "Return the scrambled eggs to the pan. Pour in soy sauce and add green onions. Stir-fry everything for 1–2 more minutes. Season with salt and pepper to taste."
+        },
+        {
+          "subtitle": "Serve",
+          "instruction": "Serve hot, garnished with optional sesame seeds or a drizzle of sesame oil."
+        }
+      ],
+      "nutrition": {
+        "calories": "145",
+        "protein": "4.2",
+        "fat": "5.5",
+        "carbohydrates": "19.8",
+        "fiber": "1.1",
+        "sodium": "410"
+      },
+      "createdAt": "2025-10-13T16:23:01.546Z"
+    }
+  ]
 }

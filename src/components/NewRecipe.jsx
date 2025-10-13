@@ -12,15 +12,75 @@ function NewRecipe() {
     { subtitle: "", instruction: "" },
   ]);
 
-  const handleSubmit = (e) => {
+  const titleRef = useRef();
+  const descriptionRef = useRef();
+  const servingsRef = useRef();
+  const nutritionRefs = {
+    calories: useRef(),
+    protein: useRef(),
+    fat: useRef(),
+    carbohydrates: useRef(),
+    fiber: useRef(),
+    sodium: useRef(),
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted!");
+
+    const newRecipe = {
+      title: titleRef.current.value,
+      description: descriptionRef.current.value,
+      picture: fileName,
+      servings: servingsRef.current.value,
+      ingredients,
+      instructions,
+      nutrition: {
+        calories: nutritionRefs.calories.current.value,
+        protein: nutritionRefs.protein.current.value,
+        fat: nutritionRefs.fat.current.value,
+        carbohydrates: nutritionRefs.carbohydrates.current.value,
+        fiber: nutritionRefs.fiber.current.value,
+        sodium: nutritionRefs.sodium.current.value,
+      },
+      createdAt: new Date().toISOString(),
+    };
+    try {
+      const res = await fetch("http://localhost:3001/recipes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newRecipe),
+      });
+      if (!res.ok) throw new Error("Failed to add recipe");
+
+      const result = await res.json();
+      console.log("Recipe saved:", result);
+
+      clearForm();
+    } catch (err) {
+      console.error("Submission error:", err);
+    }
+  };
+
+  const clearForm = () => {
+    titleRef.current.value = "";
+    descriptionRef.current.value = "";
+    servingsRef.current.value = "";
+    setFileName("");
+
+    setIngredients([""]);
+    setInstructions([{ subtitle: "", instruction: "" }]);
+
+    Object.values(nutritionRefs).forEach((ref) => {
+      if (ref.current) ref.current.value = "";
+    });
   };
 
   const textareaRef = useRef(null);
 
   const handleInput = () => {
-    const textarea = textareaRef.current;
+    const textarea = descriptionRef.current;
     if (textarea) {
       textarea.style.height = "auto";
       textarea.style.height = `${textarea.scrollHeight}px`;
@@ -56,6 +116,7 @@ function NewRecipe() {
                 id="title"
                 name="title"
                 placeholder="Your title"
+                ref={titleRef}
                 className="text-xl  placeholder:italic placeholder:font-light noBox"
               />
             </div>
@@ -68,7 +129,7 @@ function NewRecipe() {
                 id="description"
                 placeholder="Your description"
                 className="text-lg  placeholder:italic placeholder:font-light noBox resize-none"
-                ref={textareaRef}
+                ref={descriptionRef}
                 onInput={handleInput}
                 rows={1}
               ></textarea>
@@ -99,6 +160,7 @@ function NewRecipe() {
                     type="number"
                     name="servings"
                     id="servings"
+                    ref={servingsRef}
                     className="w-auto noBox  max-w-[2ch] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                     placeholder="..."
                     min="0"
@@ -182,20 +244,50 @@ function NewRecipe() {
                 <p className="text-lg text-darkGrey font-light">Per 100g</p>
               </div>
               <div className="w-full flex flex-col gap-9">
-                <AddNutrition id="calories" label="Calories" unit="kcal" />
-                <AddNutrition id="protein" label="Protein" unit="g" />
-                <AddNutrition id="fat" label="Fat" unit="g" />
+                <AddNutrition
+                  id="calories"
+                  label="Calories"
+                  unit="kcal"
+                  inputRef={nutritionRefs.calories}
+                />
+                <AddNutrition
+                  id="protein"
+                  label="Protein"
+                  unit="g"
+                  inputRef={nutritionRefs.protein}
+                />
+                <AddNutrition
+                  id="fat"
+                  label="Fat"
+                  unit="g"
+                  inputRef={nutritionRefs.fat}
+                />
                 <AddNutrition
                   id="carbohydrates"
                   label="Carbohydrates"
                   unit="g"
+                  inputRef={nutritionRefs.carbohydrates}
                 />
-                <AddNutrition id="fiber" label="Fiber" unit="g" />
-                <AddNutrition id="sodium" label="Sodium" unit="mg" />
+                <AddNutrition
+                  id="fiber"
+                  label="Fiber"
+                  unit="g"
+                  inputRef={nutritionRefs.fiber}
+                />
+                <AddNutrition
+                  id="sodium"
+                  label="Sodium"
+                  unit="mg"
+                  inputRef={nutritionRefs.sodium}
+                />
               </div>
             </div>
             <div className="flex flex-col items-end gap-9">
-              <button className="text-2xl font-light text-darkGrey hover:cursor-pointer">
+              <button
+                type="button"
+                className="text-2xl font-light text-darkGrey hover:cursor-pointer"
+                onClick={clearForm}
+              >
                 Clear
               </button>
               <input

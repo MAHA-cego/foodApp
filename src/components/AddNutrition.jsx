@@ -1,4 +1,4 @@
-function AddNutrition({ id, label, unit }) {
+function AddNutrition({ id, label, unit, inputRef }) {
   return (
     <>
       <div className="flex flex-row justify-between w-full">
@@ -10,6 +10,8 @@ function AddNutrition({ id, label, unit }) {
             type="number"
             id={id}
             name={id}
+            ref={inputRef}
+            step="any"
             className="w-auto noBox text-right px-1 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
             placeholder="..."
             min="0"
