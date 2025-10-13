@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -11,6 +11,23 @@ import RecipeMain from "../components/RecipeMain.jsx";
 function Main() {
   const titleRef = useRef();
   const [scrolled, setScrolled] = useState(false);
+
+  const [recipes, setRecipes] = useState([]);
+
+  useEffect(() => {
+    const fetchRecipes = async () => {
+      try {
+        const res = await fetch("http://localhost:3001/recipes");
+        if (!res.ok) throw new Error("Failed to fetch recipes");
+        const data = await res.json();
+        setRecipes(data);
+      } catch (err) {
+        console.error("Error fetching recipes:", err);
+      }
+    };
+
+    fetchRecipes();
+  }, []);
 
   useGSAP(() => {
     const trigger = ScrollTrigger.create({
@@ -95,10 +112,14 @@ function Main() {
           </div>
         </div>
         <div className="z-2">
-          <RecipeMain />
-          <RecipeMain />
-          <RecipeMain />
-          <RecipeMain />
+          {recipes.map((recipe) => (
+            <RecipeMain
+              key={recipe.id}
+              date={recipe.createdAt}
+              title={recipe.title}
+              image={recipe.picture}
+            />
+          ))}
         </div>
         <div className="mt-[7.5rem] grid grid-cols-[7fr_3fr_2fr]">
           <div className="col-start-2 flex flex-col gap-6">

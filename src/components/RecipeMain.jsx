@@ -6,7 +6,7 @@ import eggFriedRiceImg from "../assets/egg-fried-rice-main-preview.webp";
 
 gsap.registerPlugin(ScrollTrigger);
 
-function RecipeMain() {
+function RecipeMain({ date, title, image }) {
   const [hovered, setHovered] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [imgPos, setImgPos] = useState({ x: 0, y: 0 });
@@ -69,6 +69,16 @@ function RecipeMain() {
     );
   }, []);
 
+  console.log("Raw date value:", date);
+
+  const formattedDate = date
+    ? new Date(date).toLocaleString("en-GB", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      })
+    : "";
+
   return (
     <>
       <div
@@ -85,13 +95,13 @@ function RecipeMain() {
         onMouseMove={handleMouseMove}
       >
         <p className="col-start-1 inline-block content-center text-darkGrey">
-          21.09.2025
+          {formattedDate}
         </p>
         <button className="col-start-2 justify-self-start border h-[2.3rem] w-24 rounded-lg self-center hover:cursor-pointer">
-          Cédric
+          User
         </button>
         <h3 className="col-start-3 inline-block content-center font-medium hover:cursor-pointer">
-          Stir fried rice
+          {title || "Untitled Recipe"}
         </h3>
         <button
           className={`col-start-4 justify-self-end hover:cursor-pointer transition-all duration-300 ease-out ${
@@ -103,8 +113,12 @@ function RecipeMain() {
 
         {
           <img
-            src={eggFriedRiceImg}
-            alt="hover"
+            src={`/images/${image}`}
+            alt={title}
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = "/images/placeholder.png";
+            }}
             className={`absolute h-65 w-65 pointer-events-none z-50
               transition-all duration-300 ease-out
               ${hovered && showImage ? "opacity-100" : "opacity-0"}
