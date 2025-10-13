@@ -7,6 +7,16 @@ import AddNutrition from "./AddNutrition.jsx";
 import plus from "../assets/iconmonstr-x-mark-lined.svg";
 
 function NewRecipe() {
+  const [ingredients, setIngredients] = useState([""]);
+  const [instructions, setInstructions] = useState([
+    { subtitle: "", instruction: "" },
+  ]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Form submitted!");
+  };
+
   const textareaRef = useRef(null);
 
   const handleInput = () => {
@@ -32,7 +42,11 @@ function NewRecipe() {
             <h1 className="text-6xl">New recipe</h1>
             <p className="text-2xl text-darkGrey">Cédric</p>
           </div>
-          <form action="" className="pt-24 flex flex-col gap-20">
+          <form
+            action=""
+            className="pt-24 flex flex-col gap-20"
+            onSubmit={handleSubmit}
+          >
             <div className="newRecipeEl">
               <label htmlFor="title" className="newRecipeSubtitle">
                 Title
@@ -91,11 +105,32 @@ function NewRecipe() {
                   />
                   <label htmlFor="servings">servings</label>
                 </div>
-                <AddIngredient />
-                <button className="pt-9">
+                <div className="flex flex-col gap-4">
+                  {ingredients.map((ingredient, index) => (
+                    <AddIngredient
+                      key={index}
+                      value={ingredient}
+                      onChange={(e) => {
+                        const newIngredients = [...ingredients];
+                        newIngredients[index] = e.target.value;
+                        setIngredients(newIngredients);
+                      }}
+                      onRemove={() => {
+                        setIngredients((prev) =>
+                          prev.filter((_, i) => i !== index)
+                        );
+                      }}
+                    />
+                  ))}
+                </div>
+                <button
+                  type="button"
+                  className="pt-9"
+                  onClick={() => setIngredients([...ingredients, ""])}
+                >
                   <img
                     src={plus}
-                    alt=""
+                    alt="Add ingredient"
                     className="h-4 w-4 rotate-45 hover:cursor-pointer"
                   />
                 </button>
@@ -104,11 +139,38 @@ function NewRecipe() {
             <div className="newRecipeEl2">
               <p className="newRecipeSubtitle">Instruction</p>
               <div className="col-start-2 col-span-1">
-                <AddInstruction />
-                <button className="pt-9">
+                <div className="flex flex-col gap-10">
+                  {instructions.map((step, index) => (
+                    <AddInstruction
+                      key={index}
+                      subtitle={step.subtitle}
+                      instruction={step.instruction}
+                      onChange={(field, value) => {
+                        const updated = [...instructions];
+                        updated[index][field] = value;
+                        setInstructions(updated);
+                      }}
+                      onRemove={() => {
+                        setInstructions((prev) =>
+                          prev.filter((_, i) => i !== index)
+                        );
+                      }}
+                    />
+                  ))}
+                </div>
+                <button
+                  type="button"
+                  className="pt-9"
+                  onClick={() =>
+                    setInstructions([
+                      ...instructions,
+                      { subtitle: "", instruction: "" },
+                    ])
+                  }
+                >
                   <img
                     src={plus}
-                    alt=""
+                    alt="Add instruction"
                     className="h-4 w-4 rotate-45 hover:cursor-pointer"
                   />
                 </button>

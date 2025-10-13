@@ -3,7 +3,7 @@ import brightnessIcon from "../assets/iconmonstr-brightness-10.svg";
 function Nav() {
   return (
     <nav className="grid grid-cols-[2fr_1fr] px-10 pt-[1.875rem]  fixed w-full top-0 z-100 ">
-      <h2 className="grid-start-1 text-3xl font-medium -translate-0.5">
+      <h2 className="grid-start-1 text-3xl font-medium -translate-0.5 hover:cursor-pointer">
         Food.
       </h2>
       <div className="grid-start-2">
@@ -20,7 +20,11 @@ function Nav() {
             </a>
           </li>
           <li>
-            <img src={brightnessIcon} alt="" className="w-5" />
+            <img
+              src={brightnessIcon}
+              alt=""
+              className="w-5 hover:cursor-pointer"
+            />
           </li>
         </ul>
       </div>

@@ -62,7 +62,9 @@ function Main() {
               `}
             >
               <p className="text-lg italic font-light">Sorting :</p>
-              <button className="text-lg">Alphabetical</button>
+              <button className="text-lg hover:cursor-pointer">
+                Alphabetical
+              </button>
             </div>
             <div
               className={`
@@ -84,7 +86,7 @@ function Main() {
                     placeholder="..."
                     className="text-lg border-none outline-none w-full"
                   />
-                  <button type="submit" className="ml-2">
+                  <button type="submit" className="ml-2 hover:cursor-pointer">
                     <img src={magnifier} alt="Search" width="18" height="18" />
                   </button>
                 </div>
@@ -107,7 +109,9 @@ function Main() {
               Recipes are being added every day by our users, be sure to drop by
               later.
             </p>
-            <h3 className="text-2xl underline mt-1">Add your own !</h3>
+            <a href="" className="text-2xl underline mt-1 hover:cursor-pointer">
+              Add your own !
+            </a>
           </div>
         </div>
       </div>

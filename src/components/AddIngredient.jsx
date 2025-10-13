@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import line from "../assets/iconmonstr-line-one-horizontal-lined.svg";
 
-function AddIngredient() {
+function AddIngredient({ value, onChange, onRemove }) {
   const textareaRef = useRef(null);
 
   const handleInput = () => {
@@ -14,18 +14,27 @@ function AddIngredient() {
 
   return (
     <>
-      <div className="flex flex-row justify-between">
+      <div className="flex flex-row w-full items-start">
         <textarea
           name="ingredient"
-          id="ingredient"
+          value={value}
+          onChange={onChange}
           placeholder="Your ingredient"
-          className="noBox placeholder:italic placeholder:font-light resize-none"
+          className="flex-grow noBox placeholder:italic placeholder:font-light resize-none"
           ref={textareaRef}
           onInput={handleInput}
           rows={1}
         ></textarea>
-        <button>
-          <img src={line} alt="" className="h-4 w-4 hover:cursor-pointer" />
+        <button
+          type="button"
+          onClick={onRemove}
+          className="ml-2 shrink-0 self-start"
+        >
+          <img
+            src={line}
+            alt="Remove"
+            className="h-4 w-4 hover:cursor-pointer"
+          />
         </button>
       </div>
     </>

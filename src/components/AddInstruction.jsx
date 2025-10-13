@@ -1,11 +1,12 @@
 import { useRef } from "react";
 import line from "../assets/iconmonstr-line-one-horizontal-lined.svg";
 
-function AddInstruction() {
-  const textareaRef = useRef(null);
+function AddInstruction({ subtitle, instruction, onChange, onRemove }) {
+  const subtitleRef = useRef(null);
+  const instructionRef = useRef(null);
 
-  const handleInput = () => {
-    const textarea = textareaRef.current;
+  const handleInput = (ref) => {
+    const textarea = ref.current;
     if (textarea) {
       textarea.style.height = "auto";
       textarea.style.height = `${textarea.scrollHeight}px`;
@@ -16,25 +17,32 @@ function AddInstruction() {
     <>
       <div className="flex flex-col">
         <div className="flex flex-row justify-between">
-          <input
-            type="text"
-            id="subtitle"
+          <textarea
             name="subtitle"
+            ref={subtitleRef}
+            value={subtitle}
+            onChange={(e) => onChange("subtitle", e.target.value)}
             placeholder="Your subtitle"
-            className="text-lg placeholder:italic placeholder:font-light noBox "
-          />
-          <button>
-            <img src={line} alt="" className="h-4 w-4 hover:cursor-pointer" />
+            className="text-lg flex-grow noBox placeholder:italic placeholder:font-light resize-none"
+            onInput={() => handleInput(subtitleRef)}
+            rows={1}
+          ></textarea>
+          <button type="button" onClick={onRemove}>
+            <img
+              src={line}
+              alt="Remove"
+              className="h-4 w-4 hover:cursor-pointer"
+            />
           </button>
         </div>
         <textarea
-          name="instruction"
-          id="intruction"
           placeholder="Your instruction"
-          ref={textareaRef}
-          onInput={handleInput}
+          value={instruction}
+          ref={instructionRef}
+          onChange={(e) => onChange("instruction", e.target.value)}
+          onInput={() => handleInput(instructionRef)}
           rows={1}
-          className="placeholder:italic placeholder:font-light noBox resize-none pt-9"
+          className="placeholder:italic placeholder:font-light noBox resize-none pt-2"
         ></textarea>
       </div>
     </>
