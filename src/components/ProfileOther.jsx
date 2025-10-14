@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
@@ -10,6 +10,23 @@ import magnifier from "../assets/iconmonstr-magnifier-lined.svg";
 function ProfileOther() {
   const recipeRefs = useRef([]);
   const addRecipeRef = useRef(null);
+
+  const [recipes, setRecipes] = useState([]);
+
+  useEffect(() => {
+    const fetchRecipes = async () => {
+      try {
+        const res = await fetch("http://localhost:3001/recipes");
+        if (!res.ok) throw new Error("Failed to fetch recipes");
+        const data = await res.json();
+        setRecipes(data);
+      } catch (err) {
+        console.error("Error fetching recipes:", err);
+      }
+    };
+
+    fetchRecipes();
+  }, [recipes]);
 
   useEffect(() => {
     recipeRefs.current.forEach((el, i) => {
@@ -95,10 +112,12 @@ function ProfileOther() {
           </div>
           <div className="col-start-4">
             <ul>
-              {[0, 1, 2].map((_, i) => (
-                <li key={i} ref={(el) => (recipeRefs.current[i] = el)}>
-                  <RecipeOtherProfile />
-                </li>
+              {recipes.map((recipe) => (
+                <RecipeOtherProfile
+                  key={recipe.id}
+                  title={recipe.title}
+                  image={recipe.picture}
+                />
               ))}
             </ul>
           </div>

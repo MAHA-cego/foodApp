@@ -6,14 +6,13 @@ import eggFriedRiceImg from "../assets/egg-fried-rice-main-preview.webp";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const RecipeOtherProfile = forwardRef(({ title, image }, ref) => {
+const RecipeOtherProfile = forwardRef((props, ref) => {
   const [hovered, setHovered] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [imgOffset, setImgOffset] = useState({ x: 0, y: 0 });
   const [showImage, setShowImage] = useState(false);
 
   const containerRef = useRef(null);
-  const recipeRef = useRef(null);
 
   const handleMouseMove = (e) => {
     if (!containerRef.current) return;
@@ -25,7 +24,7 @@ const RecipeOtherProfile = forwardRef(({ title, image }, ref) => {
     setMousePos({ x: relativeX, y: relativeY });
   };
 
-  const basePercent = { x: 78, y: 72 };
+  const basePercent = { x: 25, y: -8.5 };
   const basePos = useRef(getBasePos());
 
   function getBasePos() {
@@ -77,17 +76,13 @@ const RecipeOtherProfile = forwardRef(({ title, image }, ref) => {
       </button>
       <div className="col-start-2 flex flex-col gap-8">
         <h3 className="inline-block content-center font-medium hover:cursor-pointer">
-          {title}
+          Stir fried rice
         </h3>
       </div>
 
       <img
-        src={`/images/${image}`}
-        alt={title}
-        onError={(e) => {
-          e.target.onerror = null;
-          e.target.src = "/images/placeholder.png";
-        }}
+        src={eggFriedRiceImg}
+        alt="hover"
         className={`absolute w-59 pointer-events-none z-50 transition-all duration-300 ease-out ${
           hovered && showImage ? "opacity-100" : "opacity-0"
         }`}
