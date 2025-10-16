@@ -120,7 +120,7 @@ function RecipeMain({ date, title, image }) {
               e.target.src = "/images/placeholder.png";
             }}
             className={`absolute h-65 w-65 pointer-events-none z-50
-              transition-all duration-300 ease-out
+              transition-all duration-300 ease-out object-cover
               ${hovered && showImage ? "opacity-100" : "opacity-0"}
             `}
             style={{

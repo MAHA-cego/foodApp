@@ -88,7 +88,7 @@ const RecipeOtherProfile = forwardRef(({ title, image }, ref) => {
           e.target.onerror = null;
           e.target.src = "/images/placeholder.png";
         }}
-        className={`absolute w-59 pointer-events-none z-50 transition-all duration-300 ease-out ${
+        className={`absolute w-59 h-59 object-cover pointer-events-none z-50 transition-all duration-300 ease-out ${
           hovered && showImage ? "opacity-100" : "opacity-0"
         }`}
         style={{

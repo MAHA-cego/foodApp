@@ -49,6 +49,159 @@
         "sodium": "410"
       },
       "createdAt": "2025-10-13T16:23:01.546Z"
+    },
+    {
+      "id": "c4e3",
+      "title": "Chicken Briwates",
+      "description": "Briwates are crispy Moroccan pastries traditionally filled with savory or sweet mixtures and wrapped in warqa (similar to phyllo dough). This recipe features a flavorful chicken filling seasoned with warm spices and herbs, then fried or baked to golden perfection. Perfect as an appetizer or part of a mezze platter.",
+      "picture": "briwate.jpg",
+      "servings": "4",
+      "ingredients": [
+        "250 g chicken breast, finely chopped or shredded",
+        "1 medium onion, finely chopped",
+        "30 ml olive oil",
+        "2 cloves garlic",
+        "1 tsp ground ginger",
+        "1/2 tsp ground cinnamon",
+        "1/2 tsp turmeric",
+        "1/2 tsp sweet paprika",
+        "1/4 tsp ground black pepper",
+        "1/2 tsp salt",
+        "1/2 bunch fresh parsley, chopped",
+        "1/4 bunch fresh coriander (cilantro), chopped",
+        "2 eggs",
+        "Juice of 1/2 lemon",
+        "12 sheets of brick or phyllo dough (warqa), cut into strips",
+        "1 egg yolk (for sealing)",
+        "Vegetable oil for frying or baking spray for oven version"
+      ],
+      "instructions": [
+        {
+          "subtitle": "Sauté the Onion and Garlic",
+          "instruction": "Heat olive oil in a pan and cook chopped onions and garlic until soft."
+        },
+        {
+          "subtitle": "Cook the Chicken",
+          "instruction": "Add chicken and spices, and cook until the meat is fully cooked and liquid has reduced."
+        },
+        {
+          "subtitle": "Add Herbs and Lemon",
+          "instruction": "Stir in parsley, coriander, and lemon juice, then remove from heat."
+        },
+        {
+          "subtitle": "Incorporate the Eggs",
+          "instruction": "Let the mixture cool slightly, then mix in the beaten eggs to bind."
+        },
+        {
+          "subtitle": "Prepare the Dough Strips",
+          "instruction": "Cut phyllo or warqa sheets into 8 cm-wide strips."
+        },
+        {
+          "subtitle": "Add Filling",
+          "instruction": "Place a spoonful of chicken filling at one end of each strip."
+        },
+        {
+          "subtitle": "Fold into Triangles",
+          "instruction": "Fold the strip into a triangle shape, tucking in the edges as you go."
+        },
+        {
+          "subtitle": "Seal the Edges",
+          "instruction": "Use egg yolk to seal the final edge of each triangle."
+        },
+        {
+          "subtitle": "Cook the Briwates",
+          "instruction": "Fry in hot oil at 170–180°C until golden, or bake at 200°C for 15–20 min."
+        },
+        {
+          "subtitle": "Drain and Serve",
+          "instruction": "Let them drain on paper towels and serve warm."
+        }
+      ],
+      "nutrition": {
+        "calories": "270",
+        "protein": "12",
+        "fat": "17",
+        "carbohydrates": "18",
+        "fiber": "1.2",
+        "sodium": "320"
+      },
+      "createdAt": "2025-10-14T18:28:27.267Z"
+    },
+    {
+      "id": "18fb",
+      "title": "Steak with Mushroom Sauce & Garlic Oven Potatoes",
+      "description": "A simple yet elegant dish featuring juicy pan-seared steaks topped with creamy mushroom sauce and served alongside crispy garlic-roasted potatoes. A cozy dinner for two.",
+      "picture": "steak_mushroom.jpg",
+      "servings": "2",
+      "ingredients": [
+        "2 beef steaks (sirloin or ribeye, ~180 g each)",
+        "1 tbsp olive oil",
+        "1/4 tsp ground black pepper",
+        "2 tsp butter (10 g)",
+        "125 g white or brown mushrooms (sliced)",
+        "25 g shallot or onion (finely chopped)",
+        "1 clove garlic (minced)",
+        "2 tsp butter (10 g)",
+        "50 ml cooking cream (or heavy cream)",
+        "50 ml beef or vegetable broth",
+        "1/2 tsp Dijon mustard",
+        "300 g potatoes (cut into wedges or cubes)",
+        "1 tbsp olive oil (15 ml)",
+        "2 cloves garlic (minced)",
+        "1/2 tsp dried rosemary or thyme (optional)",
+        "Salt and pepper to taste"
+      ],
+      "instructions": [
+        {
+          "subtitle": "Preheat the Oven",
+          "instruction": "Set oven to 200°C and line a baking tray with parchment paper."
+        },
+        {
+          "subtitle": "Season the Potatoes",
+          "instruction": "Toss potatoes with olive oil, garlic, herbs, salt, and pepper."
+        },
+        {
+          "subtitle": "Roast the Potatoes",
+          "instruction": "Spread evenly on the tray and roast for 35–40 minutes, flipping halfway."
+        },
+        {
+          "subtitle": "Season the Steaks",
+          "instruction": "Pat steaks dry and season both sides with salt and pepper."
+        },
+        {
+          "subtitle": "Sear the Steaks",
+          "instruction": "Heat olive oil in a hot pan and sear steaks 2–4 minutes per side to desired doneness."
+        },
+        {
+          "subtitle": "Rest the Steaks",
+          "instruction": "Remove from pan, top with butter, and let rest for 5 minutes under foil."
+        },
+        {
+          "subtitle": "Cook Onion & Garlic",
+          "instruction": "In the same pan, melt butter and sauté onion and garlic until soft."
+        },
+        {
+          "subtitle": "Add Mushrooms",
+          "instruction": "Add mushrooms and cook until browned and moisture has evaporated."
+        },
+        {
+          "subtitle": "Make the Sauce",
+          "instruction": "Pour in broth and cream, stir in mustard, and simmer until thickened."
+        },
+        {
+          "subtitle": "Serve the Dish",
+          "instruction": "Plate the steaks, pour mushroom sauce over them, and add the roasted potatoes."
+        }
+      ],
+      "nutrition": {
+        "calories": "195",
+        "protein": "13",
+        "fat": "11",
+        "carbohydrates": "11",
+        "fiber": "1.3",
+        "sodium": "230"
+      },
+      "createdAt": "2025-10-14T18:44:00.197Z"
     }
   ]
 }
