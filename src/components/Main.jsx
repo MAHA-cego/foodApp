@@ -14,20 +14,40 @@ function Main() {
 
   const [recipes, setRecipes] = useState([]);
 
+  const [loading, setLoading] = useState(true);
+
+  const [sortBy, setSortBy] = useState("chronological");
+  const [searchQuery, setSearchQuery] = useState("");
+
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const res = await fetch("http://localhost:3001/recipes");
+        const res = await fetch("/api/recipes");
         if (!res.ok) throw new Error("Failed to fetch recipes");
         const data = await res.json();
         setRecipes(data);
       } catch (err) {
         console.error("Error fetching recipes:", err);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchRecipes();
   }, []);
+
+  const filteredRecipes = recipes
+    .filter((recipe) =>
+      recipe.title.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+    .sort((a, b) => {
+      if (sortBy === "alphabetical") {
+        return a.title.localeCompare(b.title);
+      } else if (sortBy === "chronological") {
+        return new Date(b.createdAt) - new Date(a.createdAt);
+      }
+      return 0;
+    });
 
   useGSAP(() => {
     const trigger = ScrollTrigger.create({
@@ -79,8 +99,15 @@ function Main() {
               `}
             >
               <p className="text-lg italic font-light">Sorting :</p>
-              <button className="text-lg hover:cursor-pointer">
-                Alphabetical
+              <button
+                className="text-lg hover:cursor-pointer"
+                onClick={() =>
+                  setSortBy((prev) =>
+                    prev === "alphabetical" ? "chronological" : "alphabetical"
+                  )
+                }
+              >
+                {sortBy === "alphabetical" ? "Alphabetical" : "Chronological"}
               </button>
             </div>
             <div
@@ -101,6 +128,8 @@ function Main() {
                     autoComplete="off"
                     spellCheck="false"
                     placeholder="..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
                     className="text-lg border-none outline-none w-full"
                   />
                   <button type="submit" className="ml-2 hover:cursor-pointer">
@@ -112,14 +141,20 @@ function Main() {
           </div>
         </div>
         <div className="z-2">
-          {recipes.map((recipe) => (
-            <RecipeMain
-              key={recipe.id}
-              date={recipe.createdAt}
-              title={recipe.title}
-              image={recipe.picture}
-            />
-          ))}
+          {loading ? (
+            <p>Loading recipes...</p>
+          ) : filteredRecipes.length > 0 ? (
+            filteredRecipes.map((recipe) => (
+              <RecipeMain
+                key={recipe.id}
+                date={recipe.createdAt}
+                title={recipe.title}
+                image={recipe.image}
+              />
+            ))
+          ) : (
+            <p>No recipes found.</p>
+          )}
         </div>
         <div className="mt-[7.5rem] grid grid-cols-[7fr_3fr_2fr]">
           <div className="col-start-2 flex flex-col gap-6">

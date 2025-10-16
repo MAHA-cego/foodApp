@@ -2,29 +2,17 @@ import React, { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import arrow from "../assets/iconmonstr-arrow-right-lined.svg";
-import eggFriedRiceImg from "../assets/egg-fried-rice-main-preview.webp";
 
 gsap.registerPlugin(ScrollTrigger);
 
 function RecipeMain({ date, title, image }) {
   const [hovered, setHovered] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [imgPos, setImgPos] = useState({ x: 0, y: 0 });
   const [showImage, setShowImage] = useState(false);
   const [imgOffset, setImgOffset] = useState({ x: 0, y: 0 });
 
   const containerRef = useRef(null);
   const recipeRef = useRef(null);
-
-  const handleMouseMove = (e) => {
-    if (!containerRef.current) return;
-
-    const rect = containerRef.current.getBoundingClientRect();
-    const relativeX = e.clientX - rect.left;
-    const relativeY = e.clientY - rect.top;
-
-    setMousePos({ x: relativeX, y: relativeY });
-  };
 
   const basePercent = { x: 70, y: -9.5 };
   const basePos = useRef(getBasePos());
@@ -35,6 +23,16 @@ function RecipeMain({ date, title, image }) {
       y: (window.innerHeight * basePercent.y) / 100,
     };
   }
+
+  const handleMouseMove = (e) => {
+    if (!containerRef.current) return;
+
+    const rect = containerRef.current.getBoundingClientRect();
+    const relativeX = e.clientX - rect.left;
+    const relativeY = e.clientY - rect.top;
+
+    setMousePos({ x: relativeX, y: relativeY });
+  };
 
   useEffect(() => {
     if (!hovered) return;
@@ -69,8 +67,6 @@ function RecipeMain({ date, title, image }) {
     );
   }, []);
 
-  console.log("Raw date value:", date);
-
   const formattedDate = date
     ? new Date(date).toLocaleString("en-GB", {
         day: "2-digit",
@@ -78,6 +74,14 @@ function RecipeMain({ date, title, image }) {
         year: "numeric",
       })
     : "";
+
+  const imageUrl = image
+    ? image.startsWith("/uploads/")
+      ? image
+      : `/uploads/${image}`
+    : "/images/placeholder.png";
+
+  console.log(imageUrl);
 
   return (
     <>
@@ -113,7 +117,7 @@ function RecipeMain({ date, title, image }) {
 
         {
           <img
-            src={`/images/${image}`}
+            src={imageUrl}
             alt={title}
             onError={(e) => {
               e.target.onerror = null;
