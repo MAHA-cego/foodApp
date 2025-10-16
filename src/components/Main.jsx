@@ -2,6 +2,8 @@ import { useRef, useState, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { useAuth } from "../context/AuthContext.jsx";
+import { useNavigate } from "react-router-dom";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,6 +20,11 @@ function Main() {
 
   const [sortBy, setSortBy] = useState("chronological");
   const [searchQuery, setSearchQuery] = useState("");
+
+  const { user } = useAuth();
+  const isLoggedIn = !!user;
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchRecipes = async () => {
@@ -147,6 +154,7 @@ function Main() {
             filteredRecipes.map((recipe) => (
               <RecipeMain
                 key={recipe.id}
+                id={recipe.id}
                 date={recipe.createdAt}
                 title={recipe.title}
                 image={recipe.image}
@@ -165,8 +173,17 @@ function Main() {
               Recipes are being added every day by our users, be sure to drop by
               later.
             </p>
-            <a href="" className="text-2xl underline mt-1 hover:cursor-pointer">
-              Add your own !
+            <a
+              className="text-2xl underline mt-1 hover:cursor-pointer"
+              onClick={() => {
+                if (isLoggedIn) {
+                  navigate("/newrecipe");
+                } else {
+                  navigate("/login");
+                }
+              }}
+            >
+              Add your own!
             </a>
           </div>
         </div>

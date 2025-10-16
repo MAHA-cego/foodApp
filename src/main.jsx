@@ -30,7 +30,7 @@ createRoot(document.getElementById("root")).render(
               </ProtectedRoute>
             }
           />
-          <Route path="/recipe" element={<RecipePage />} />
+          <Route path="/recipe/:id" element={<RecipePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route

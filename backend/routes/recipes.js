@@ -30,6 +30,16 @@ router.get("/", (req, res) => {
   res.json(readData());
 });
 
+//get one recipe
+router.get("/:id", (req, res) => {
+  const recipes = readData();
+  const recipe = recipes.find((r) => r.id.toString() === req.params.id);
+  if (!recipe) {
+    return res.status(404).json({ message: "Recipe not found" });
+  }
+  res.json(recipe);
+});
+
 //post new recipe
 router.post("/", upload.single("image"), (req, res) => {
   try {

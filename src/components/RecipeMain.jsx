@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import arrow from "../assets/iconmonstr-arrow-right-lined.svg";
 
 gsap.registerPlugin(ScrollTrigger);
 
-function RecipeMain({ date, title, image }) {
+function RecipeMain({ date, title, image, id }) {
   const [hovered, setHovered] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [showImage, setShowImage] = useState(false);
@@ -16,6 +17,12 @@ function RecipeMain({ date, title, image }) {
 
   const basePercent = { x: 70, y: -9.5 };
   const basePos = useRef(getBasePos());
+
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/recipe/${id}`);
+  };
 
   function getBasePos() {
     return {
@@ -97,6 +104,7 @@ function RecipeMain({ date, title, image }) {
           setShowImage(false);
         }}
         onMouseMove={handleMouseMove}
+        onClick={handleClick}
       >
         <p className="col-start-1 inline-block content-center text-darkGrey">
           {formattedDate}

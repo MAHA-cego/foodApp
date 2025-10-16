@@ -1,32 +1,36 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 import RecipeIngredient from "./RecipeIngredient.jsx";
 import RecipeInstruction from "./RecipeInstruction.jsx";
 import RecipeNutrition from "./RecipeNutrition.jsx";
-import eggFriedRice from "../assets/egg-fried-rice-main-preview.webp";
 
 function Recipe() {
+  const { id } = useParams();
   const [recipe, setRecipe] = useState(null);
+  const [creator, setCreator] = useState(null);
 
   useEffect(() => {
-    const fetchRecipes = async () => {
+    const fetchRecipesAndCreator = async () => {
       try {
-        const res = await fetch("http://localhost:3001/recipes");
+        const res = await fetch(`/api/recipes/${id}`);
         if (!res.ok) throw new Error("Failed to fetch recipes");
         const data = await res.json();
-        const currentRecipe = data.find(
-          (recipe) => recipe.title === "Stir Fried Rice"
-        );
-        setRecipe(currentRecipe);
+        setRecipe(data);
+
+        const userRes = await fetch(`/api/users/${data.userId}`);
+        if (!userRes.ok) throw new Error("Failed to fetch user");
+        const userData = await userRes.json();
+        setCreator(userData);
       } catch (err) {
-        console.error("Error fetching recipes:", err);
+        console.error("Error fetching recipes or creator:", err);
       }
     };
 
-    fetchRecipes();
-  }, []);
+    if (id) fetchRecipesAndCreator();
+  }, [id]);
 
-  if (!recipe) return <div></div>;
+  if (!recipe) return <div>Loading...</div>;
 
   return (
     <>
@@ -34,7 +38,7 @@ function Recipe() {
         <div className="mt-52">
           <div className="grid grid-cols-[7fr_5fr] gap-22">
             <img
-              src={`/images/${recipe.picture}`}
+              src={recipe.image || "/image/placeholder.png"}
               alt={recipe.title}
               onError={(e) => {
                 e.target.onerror = null;
@@ -42,7 +46,9 @@ function Recipe() {
               }}
             />
             <div className="flex flex-col h-full">
-              <p className="text-base font-light text-darkGrey pb-3">User's</p>
+              <p className="text-base font-light text-darkGrey pb-3">
+                {creator ? `${creator.username}'s` : "User's"}
+              </p>
               <h1 className="text-5xl pb-10">{recipe.title}</h1>
               <p className="text-xl">{recipe.description}</p>
               <div className="font-light mt-auto">

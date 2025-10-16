@@ -44,4 +44,16 @@ router.post("/login", async (req, res) => {
   res.json({ token });
 });
 
+router.get("/:id", (req, res) => {
+  const users = readData();
+  const user = users.find((u) => u.id.toString() === req.params.id);
+
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
+
+  const { password, ...safeUser } = user;
+  res.json(safeUser);
+});
+
 export default router;
