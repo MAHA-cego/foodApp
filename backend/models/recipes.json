@@ -1,1 +1,78 @@
-[]
+[
+  {
+    "id": 1760632352893,
+    "title": "Stir Fried Rice",
+    "description": "Stir-Fried Rice with Eggs and Vegetables is a quick, wholesome, and versatile dish rooted in Asian culinary traditions. Made using day-old rice for optimal texture, this dish combines fluffy scrambled eggs, vibrant vegetables, and a savory touch of soy sauce to create a well-balanced and satisfying meal. It's a great way to use up leftover rice and fridge veggies, making it both budget-friendly and nutritious. Whether enjoyed as a main course or a side dish, this stir-fry delivers flavor, color, and comfort in every bite.",
+    "image": "/uploads/1760632352690-egg-fried-rice-main-preview.webp",
+    "ingredients": [
+      "300 g cooked white rice (cold, ideally day-old)",
+      "2 large eggs (approx. 110 g total)",
+      "130 g mixed vegetables (e.g. carrots, peas, bell pepper, corn)",
+      "30 g green onions (about 2 stalks), chopped",
+      "6 g garlic (about 2 cloves), minced",
+      "30 mL soy sauce (2 tablespoons)",
+      "15 mL vegetable oil (1 tablespoon)",
+      "Salt and pepper to taste",
+      "Optional : A few drops of sesame oil, chili flakes, or sesame seeds for garnish"
+    ],
+    "instructions": [
+      {
+        "subtitle": "Prepare the ingredients",
+        "instruction": "Beat the eggs in a bowl. Dice or thaw vegetables as needed. Use cold rice and break up clumps with your hands or a fork."
+      },
+      {
+        "subtitle": "Scramble the eggs",
+        "instruction": "Heat 1 tsp of the oil in a large skillet or wok over medium heat. Pour in the eggs, scramble gently until just cooked, then transfer to a plate."
+      },
+      {
+        "subtitle": "Cook the vegetables",
+        "instruction": "Add the remaining oil to the pan. Stir-fry garlic for 30 seconds, then add the mixed vegetables. Cook for 3–4 minutes until tender."
+      },
+      {
+        "subtitle": "Stir fry and season",
+        "instruction": "Return the scrambled eggs to the pan. Pour in soy sauce and add green onions. Stir-fry everything for 1–2 more minutes. Season with salt and pepper to taste."
+      },
+      {
+        "subtitle": "Serve",
+        "instruction": "Serve hot, garnished with optional sesame seeds or a drizzle of sesame oil."
+      }
+    ],
+    "nutrition": {
+      "calories": "145",
+      "protein": "4.2",
+      "fat": "5.5",
+      "carbohydrates": "19.8",
+      "fiber": "1.1",
+      "sodium": "410"
+    },
+    "servings": "2",
+    "userId": 1760625512895,
+    "createdAt": "2025-10-16T16:32:32.893Z"
+  },
+  {
+    "id": 1760648029037,
+    "title": "1",
+    "description": "1",
+    "image": "/uploads/1760648029023-steak_mushroom.jpg",
+    "ingredients": [
+      "1"
+    ],
+    "instructions": [
+      {
+        "subtitle": "1",
+        "instruction": "1"
+      }
+    ],
+    "nutrition": {
+      "calories": "1",
+      "protein": "1",
+      "fat": "1",
+      "carbohydrates": "1",
+      "fiber": "1",
+      "sodium": "1"
+    },
+    "servings": "1",
+    "userId": 1760625512895,
+    "createdAt": "2025-10-16T20:53:49.037Z"
+  }
+]

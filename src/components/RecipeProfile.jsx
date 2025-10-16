@@ -24,7 +24,7 @@ const RecipeProfile = forwardRef(({ title, image }, ref) => {
     setMousePos({ x: relativeX, y: relativeY });
   };
 
-  const basePercent = { x: 78, y: 74 };
+  const basePercent = { x: 35, y: -7 };
   const basePos = useRef(getBasePos());
 
   function getBasePos() {
@@ -47,6 +47,8 @@ const RecipeProfile = forwardRef(({ title, image }, ref) => {
 
     return () => cancelAnimationFrame(anim);
   }, [mousePos, hovered]);
+
+  console.log(image);
 
   return (
     <div
@@ -91,7 +93,9 @@ const RecipeProfile = forwardRef(({ title, image }, ref) => {
       </div>
 
       <img
-        src={`/images/${image}`}
+        src={
+          image ? `http://localhost:5000${image}` : "/images/placeholder.png"
+        }
         alt={title}
         onError={(e) => {
           e.target.onerror = null;

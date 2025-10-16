@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useAuth } from "../context/AuthContext";
 gsap.registerPlugin(ScrollTrigger);
 
 import RecipeProfile from "./RecipeProfile.jsx";
@@ -8,25 +9,32 @@ import plus from "../assets/iconmonstr-x-mark-lined.svg";
 import magnifier from "../assets/iconmonstr-magnifier-lined.svg";
 
 function ProfileMain() {
+  const { user, token } = useAuth();
   const recipeRefs = useRef([]);
   const addRecipeRef = useRef(null);
 
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
+    if (!user) return;
+
     const fetchRecipes = async () => {
       try {
-        const res = await fetch("http://localhost:3001/recipes");
+        const res = await fetch("api/recipes", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         if (!res.ok) throw new Error("Failed to fetch recipes");
         const data = await res.json();
-        setRecipes(data);
+
+        const myRecipes = data.filter((r) => r.userId === user.id);
+        setRecipes(myRecipes);
       } catch (err) {
         console.error("Error fetching recipes:", err);
       }
     };
 
     fetchRecipes();
-  }, [recipes]);
+  }, [token, user]);
 
   useEffect(() => {
     recipeRefs.current.forEach((el, i) => {
@@ -69,7 +77,7 @@ function ProfileMain() {
         }
       );
     }
-  }, []);
+  }, [recipes]);
 
   return (
     <>
@@ -79,7 +87,7 @@ function ProfileMain() {
             Recipes
           </h1>
           <p className="col-start-2 text-3xl text-darkGrey font-light">
-            (User)
+            ({user ? user.username : "Loading..."})
           </p>
         </div>
         <div className="border-t-3 grid grid-cols-[2fr_2fr_1fr_7fr]">
@@ -112,11 +120,12 @@ function ProfileMain() {
           </div>
           <div className="col-start-4">
             <ul>
-              {recipes.map((recipe) => (
+              {recipes.map((recipe, index) => (
                 <RecipeProfile
                   key={recipe.id}
                   title={recipe.title}
-                  image={recipe.picture}
+                  image={recipe.image}
+                  ref={(el) => (recipeRefs.current[index] = el)}
                 />
               ))}
               <li

@@ -16,7 +16,7 @@ function Nav() {
           </li>
           <li>
             <a href="" className="">
-              Cook
+              Profile
             </a>
           </li>
           <li>

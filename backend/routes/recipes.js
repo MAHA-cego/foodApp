@@ -42,7 +42,12 @@ router.post("/", upload.single("image"), (req, res) => {
       title: req.body.title,
       description: req.body.description,
       image: req.file ? `/uploads/${req.file.filename}` : null,
+      ingredients: JSON.parse(req.body.ingredients),
+      instructions: JSON.parse(req.body.instructions),
+      nutrition: JSON.parse(req.body.nutrition),
+      servings: req.body.servings,
       userId: decoded.id,
+      createdAt: new Date().toISOString(),
     };
     recipes.push(newRecipe);
     writeData(recipes);

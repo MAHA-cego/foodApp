@@ -16,7 +16,7 @@ function Footer() {
             <a href="">Discover</a>
           </li>
           <li>
-            <a href=""></a>Cook
+            <a href="">Profile</a>
           </li>
         </ul>
       </footer>

@@ -1,4 +1,5 @@
-import { useRef, useState } from "react";
+import { useAuth } from "../context/AuthContext.jsx";
+import { useRef, useState, useEffect } from "react";
 
 import AddIngredient from "./AddIngredient.jsx";
 import AddInstruction from "./AddInstruction.jsx";
@@ -7,14 +8,19 @@ import AddNutrition from "./AddNutrition.jsx";
 import plus from "../assets/iconmonstr-x-mark-lined.svg";
 
 function NewRecipe() {
+  const { token, user } = useAuth();
+
   const [ingredients, setIngredients] = useState([""]);
   const [instructions, setInstructions] = useState([
     { subtitle: "", instruction: "" },
   ]);
+  const [fileName, setFileName] = useState("");
+  const [canSubmit, setCanSubmit] = useState(false);
 
   const titleRef = useRef();
   const descriptionRef = useRef();
   const servingsRef = useRef();
+  const fileRef = useRef();
   const nutritionRefs = {
     calories: useRef(),
     protein: useRef(),
@@ -24,39 +30,88 @@ function NewRecipe() {
     sodium: useRef(),
   };
 
+  const [validationTrigger, setValidationTrigger] = useState(0);
+
+  const validateForm = () => {
+    requestAnimationFrame(() => {
+      const hasTitle = titleRef.current?.value.trim() !== "";
+      const hasDescription = descriptionRef.current?.value.trim() !== "";
+      const hasServings = servingsRef.current?.value.trim() !== "";
+
+      const hasImage = !!(
+        fileRef.current?.files && fileRef.current.files.length > 0
+      );
+
+      const ingredientsFilled =
+        ingredients.length > 0 && ingredients.every((ing) => ing.trim() !== "");
+      const instructionsFilled =
+        instructions.length > 0 &&
+        instructions.every(
+          (inst) =>
+            inst.subtitle.trim() !== "" && inst.instruction.trim() !== ""
+        );
+      const nutritionFilled = Object.values(nutritionRefs).every(
+        (ref) => ref.current?.value.trim() !== ""
+      );
+
+      const valid =
+        hasTitle &&
+        hasDescription &&
+        hasServings &&
+        hasImage &&
+        ingredientsFilled &&
+        instructionsFilled &&
+        nutritionFilled;
+
+      console.log("Validation Results:", {
+        hasTitle,
+        hasDescription,
+        hasServings,
+        hasImage,
+        ingredientsFilled,
+        instructionsFilled,
+        nutritionFilled,
+      });
+
+      setCanSubmit(valid);
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!canSubmit) return;
 
-    const newRecipe = {
-      title: titleRef.current.value,
-      description: descriptionRef.current.value,
-      picture: fileName,
-      servings: servingsRef.current.value,
-      ingredients,
-      instructions,
-      nutrition: {
-        calories: nutritionRefs.calories.current.value,
-        protein: nutritionRefs.protein.current.value,
-        fat: nutritionRefs.fat.current.value,
-        carbohydrates: nutritionRefs.carbohydrates.current.value,
-        fiber: nutritionRefs.fiber.current.value,
-        sodium: nutritionRefs.sodium.current.value,
-      },
-      createdAt: new Date().toISOString(),
-    };
     try {
-      const res = await fetch("http://localhost:3001/recipes", {
+      const formData = new FormData();
+      formData.append("title", titleRef.current.value);
+      formData.append("description", descriptionRef.current.value);
+      formData.append("servings", servingsRef.current.value);
+      formData.append("image", fileRef.current?.files[0] || null);
+      formData.append("ingredients", JSON.stringify(ingredients));
+      formData.append("instructions", JSON.stringify(instructions));
+      formData.append(
+        "nutrition",
+        JSON.stringify({
+          calories: nutritionRefs.calories.current.value,
+          protein: nutritionRefs.protein.current.value,
+          fat: nutritionRefs.fat.current.value,
+          carbohydrates: nutritionRefs.carbohydrates.current.value,
+          fiber: nutritionRefs.fiber.current.value,
+          sodium: nutritionRefs.sodium.current.value,
+        })
+      );
+
+      const res = await fetch("/api/recipes", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(newRecipe),
+        body: formData,
       });
       if (!res.ok) throw new Error("Failed to add recipe");
 
       const result = await res.json();
       console.log("Recipe saved:", result);
-
       clearForm();
     } catch (err) {
       console.error("Submission error:", err);
@@ -68,16 +123,14 @@ function NewRecipe() {
     descriptionRef.current.value = "";
     servingsRef.current.value = "";
     setFileName("");
-
     setIngredients([""]);
     setInstructions([{ subtitle: "", instruction: "" }]);
-
     Object.values(nutritionRefs).forEach((ref) => {
       if (ref.current) ref.current.value = "";
     });
+    if (fileRef) fileRef.current.value = "";
+    setCanSubmit(false);
   };
-
-  const textareaRef = useRef(null);
 
   const handleInput = () => {
     const textarea = descriptionRef.current;
@@ -85,14 +138,21 @@ function NewRecipe() {
       textarea.style.height = "auto";
       textarea.style.height = `${textarea.scrollHeight}px`;
     }
+    validateForm();
   };
-
-  const [fileName, setFileName] = useState("");
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setFileName(file ? file.name : "");
+    validateForm();
   };
+
+  useEffect(() => {
+    console.log("Validation triggered");
+    validateForm();
+  }, [ingredients, instructions, fileName, validationTrigger]);
+
+  const handleInputChange = () => setValidationTrigger((t) => t + 1);
 
   return (
     <>
@@ -100,7 +160,7 @@ function NewRecipe() {
         <div className="col-start-2 col-span-2">
           <div className="flex flex-row justify-between pb-9 border-b">
             <h1 className="text-6xl">New recipe</h1>
-            <p className="text-2xl text-darkGrey">Cédric</p>
+            <p className="text-2xl text-darkGrey">{user?.username || "User"}</p>
           </div>
           <form
             action=""
@@ -118,6 +178,10 @@ function NewRecipe() {
                 placeholder="Your title"
                 ref={titleRef}
                 className="text-xl  placeholder:italic placeholder:font-light noBox"
+                onInput={() => {
+                  validateForm();
+                  handleInputChange();
+                }}
               />
             </div>
             <div className="newRecipeEl">
@@ -130,23 +194,28 @@ function NewRecipe() {
                 placeholder="Your description"
                 className="text-lg  placeholder:italic placeholder:font-light noBox resize-none"
                 ref={descriptionRef}
-                onInput={handleInput}
+                onInput={() => {
+                  handleInput();
+                  validateForm();
+                  handleInputChange();
+                }}
                 rows={1}
               ></textarea>
             </div>
             <div className="newRecipeEl2">
-              <label htmlFor="picture" className="newRecipeSubtitle">
+              <label htmlFor="image" className="newRecipeSubtitle">
                 Picture
               </label>
               <input
                 type="file"
-                id="picture"
-                name="picture"
+                id="image"
+                name="image"
+                ref={fileRef}
                 onChange={handleFileChange}
                 className="hidden"
               />
               <label
-                htmlFor="picture"
+                htmlFor="image"
                 className="italic underline hover:cursor-pointer"
               >
                 {fileName || "Add a picture"}
@@ -164,6 +233,11 @@ function NewRecipe() {
                     className="w-auto noBox  max-w-[2ch] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                     placeholder="..."
                     min="0"
+                    required
+                    onInput={() => {
+                      validateForm();
+                      handleInputChange();
+                    }}
                   />
                   <label htmlFor="servings">servings</label>
                 </div>
@@ -176,11 +250,16 @@ function NewRecipe() {
                         const newIngredients = [...ingredients];
                         newIngredients[index] = e.target.value;
                         setIngredients(newIngredients);
+                        validateForm();
+                        handleInputChange();
                       }}
                       onRemove={() => {
-                        setIngredients((prev) =>
-                          prev.filter((_, i) => i !== index)
+                        const newIngredients = ingredients.filter(
+                          (_, i) => i !== index
                         );
+                        setIngredients(newIngredients);
+                        validateForm();
+                        handleInputChange();
                       }}
                     />
                   ))}
@@ -188,7 +267,11 @@ function NewRecipe() {
                 <button
                   type="button"
                   className="pt-9"
-                  onClick={() => setIngredients([...ingredients, ""])}
+                  onClick={() => {
+                    setIngredients([...ingredients, ""]);
+                    validateForm();
+                    handleInputChange();
+                  }}
                 >
                   <img
                     src={plus}
@@ -211,11 +294,16 @@ function NewRecipe() {
                         const updated = [...instructions];
                         updated[index][field] = value;
                         setInstructions(updated);
+                        validateForm();
+                        handleInputChange();
                       }}
                       onRemove={() => {
-                        setInstructions((prev) =>
-                          prev.filter((_, i) => i !== index)
+                        const updated = instructions.filter(
+                          (_, i) => i !== index
                         );
+                        setInstructions(updated);
+                        validateForm();
+                        handleInputChange();
                       }}
                     />
                   ))}
@@ -223,12 +311,14 @@ function NewRecipe() {
                 <button
                   type="button"
                   className="pt-9"
-                  onClick={() =>
+                  onClick={() => {
                     setInstructions([
                       ...instructions,
                       { subtitle: "", instruction: "" },
-                    ])
-                  }
+                    ]);
+                    validateForm();
+                    handleInputChange();
+                  }}
                 >
                   <img
                     src={plus}
@@ -249,36 +339,60 @@ function NewRecipe() {
                   label="Calories"
                   unit="kcal"
                   inputRef={nutritionRefs.calories}
+                  onInput={() => {
+                    validateForm();
+                    handleInputChange();
+                  }}
                 />
                 <AddNutrition
                   id="protein"
                   label="Protein"
                   unit="g"
                   inputRef={nutritionRefs.protein}
+                  onInput={() => {
+                    validateForm();
+                    handleInputChange();
+                  }}
                 />
                 <AddNutrition
                   id="fat"
                   label="Fat"
                   unit="g"
                   inputRef={nutritionRefs.fat}
+                  onInput={() => {
+                    validateForm();
+                    handleInputChange();
+                  }}
                 />
                 <AddNutrition
                   id="carbohydrates"
                   label="Carbohydrates"
                   unit="g"
                   inputRef={nutritionRefs.carbohydrates}
+                  onInput={() => {
+                    validateForm();
+                    handleInputChange();
+                  }}
                 />
                 <AddNutrition
                   id="fiber"
                   label="Fiber"
                   unit="g"
                   inputRef={nutritionRefs.fiber}
+                  onInput={() => {
+                    validateForm();
+                    handleInputChange();
+                  }}
                 />
                 <AddNutrition
                   id="sodium"
                   label="Sodium"
                   unit="mg"
                   inputRef={nutritionRefs.sodium}
+                  onInput={() => {
+                    validateForm();
+                    handleInputChange();
+                  }}
                 />
               </div>
             </div>
@@ -293,7 +407,12 @@ function NewRecipe() {
               <input
                 type="submit"
                 value="Create"
+                disabled={!canSubmit}
                 className="text-3xl font-medium hover:cursor-pointer"
+                style={{
+                  opacity: canSubmit ? 1 : 0.5,
+                  cursor: canSubmit ? "pointer" : "not-allowed",
+                }}
               />
             </div>
           </form>
