@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 import visible from "../assets/iconmonstr-eye-lined.svg";
 import hidden from "../assets/iconmonstr-eye-off-lined.svg";
 
-function Login() {
-  const { login } = useAuth();
+function Register() {
+  const { register } = useAuth();
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -16,8 +16,8 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await login(username, password);
-      navigate("/profile");
+      await register(username, password);
+      navigate("/login");
     } catch (err) {
       setError(err.message);
     }
@@ -27,13 +27,13 @@ function Login() {
     <>
       <div className="mt-52 w-150 mx-auto">
         <div className="flex flex-row justify-between pb-10 border-b">
-          <h1 className="text-4xl underline hover:cursor-pointer">Log in</h1>
           <h1
             className="text-4xl hover:cursor-pointer"
-            onClick={() => navigate("/register")}
+            onClick={() => navigate("/login")}
           >
-            Sign up
+            Log in
           </h1>
+          <h1 className="text-4xl underline hover:cursor-pointer">Sign up</h1>
         </div>
         <form
           onSubmit={handleSubmit}
@@ -78,4 +78,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;

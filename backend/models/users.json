@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "id": 1760625324059,
+    "username": "test",
+    "password": "$2b$10$wMatrK5NTGiFWNLBHhaW4u3hzP21B.s.fY8dJtJoV/OsFEbCLcA3e"
+  },
+  {
+    "id": 1760625512895,
+    "username": "Admin",
+    "password": "$2b$10$dKIhHi0ATZMqUQzcTMVX/uUkhyJUxno8zrzWKebeTC/0oo3u8iXrm"
+  }
+]
