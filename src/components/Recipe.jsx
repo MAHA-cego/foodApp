@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import RecipeIngredient from "./RecipeIngredient.jsx";
 import RecipeInstruction from "./RecipeInstruction.jsx";
@@ -9,6 +9,8 @@ function Recipe() {
   const { id } = useParams();
   const [recipe, setRecipe] = useState(null);
   const [creator, setCreator] = useState(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchRecipesAndCreator = async () => {
@@ -46,7 +48,10 @@ function Recipe() {
               }}
             />
             <div className="flex flex-col h-full">
-              <p className="text-base font-light text-darkGrey pb-3">
+              <p
+                className="text-base font-light text-darkGrey pb-3 hover:underline hover:cursor-pointer decoration-inherit"
+                onClick={() => navigate(`/profile/${recipe.userId}`)}
+              >
                 {creator ? `${creator.username}'s` : "User's"}
               </p>
               <h1 className="text-5xl pb-10">{recipe.title}</h1>

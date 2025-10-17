@@ -15,7 +15,7 @@ function Main() {
   const [scrolled, setScrolled] = useState(false);
 
   const [recipes, setRecipes] = useState([]);
-
+  const [users, setUsers] = useState({});
   const [loading, setLoading] = useState(true);
 
   const [sortBy, setSortBy] = useState("chronological");
@@ -27,20 +27,34 @@ function Main() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchRecipes = async () => {
+    const fetchRecipesAndUsers = async () => {
       try {
         const res = await fetch("/api/recipes");
         if (!res.ok) throw new Error("Failed to fetch recipes");
         const data = await res.json();
         setRecipes(data);
+
+        const uniqueUserIds = [
+          ...new Set(data.map((r) => r.userId.toString())),
+        ];
+        const userData = {};
+        await Promise.all(
+          uniqueUserIds.map(async (id) => {
+            const userRes = await fetch(`/api/users/${id}`);
+            if (!userRes.ok) throw new Error(`Failed to fetch user ${id}`);
+            const u = await userRes.json();
+            userData[id.toString()] = u.username || "Unknown";
+          })
+        );
+        setUsers(userData);
       } catch (err) {
-        console.error("Error fetching recipes:", err);
+        console.error("Error fetching recipes or users:", err);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchRecipes();
+    fetchRecipesAndUsers();
   }, []);
 
   const filteredRecipes = recipes
@@ -158,6 +172,8 @@ function Main() {
                 date={recipe.createdAt}
                 title={recipe.title}
                 image={recipe.image}
+                creatorName={users[recipe.userId.toString()] || "Unknown"}
+                creatorId={recipe.userId}
               />
             ))
           ) : (

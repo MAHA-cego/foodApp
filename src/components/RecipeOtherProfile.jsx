@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef, forwardRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import arrow from "../assets/iconmonstr-arrow-right-lined.svg";
-import eggFriedRiceImg from "../assets/egg-fried-rice-main-preview.webp";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const RecipeOtherProfile = forwardRef(({ title, image }, ref) => {
+const RecipeOtherProfile = forwardRef(({ id, title, image }, ref) => {
   const [hovered, setHovered] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [imgOffset, setImgOffset] = useState({ x: 0, y: 0 });
@@ -14,6 +14,8 @@ const RecipeOtherProfile = forwardRef(({ title, image }, ref) => {
 
   const containerRef = useRef(null);
   const recipeRef = useRef(null);
+
+  const navigate = useNavigate();
 
   const handleMouseMove = (e) => {
     if (!containerRef.current) return;
@@ -25,7 +27,7 @@ const RecipeOtherProfile = forwardRef(({ title, image }, ref) => {
     setMousePos({ x: relativeX, y: relativeY });
   };
 
-  const basePercent = { x: 78, y: 72 };
+  const basePercent = { x: 35, y: -8 };
   const basePos = useRef(getBasePos());
 
   function getBasePos() {
@@ -65,6 +67,7 @@ const RecipeOtherProfile = forwardRef(({ title, image }, ref) => {
         setShowImage(false);
       }}
       onMouseMove={handleMouseMove}
+      onClick={() => navigate(`/recipe/${id}`)}
     >
       <button className="col-start-1 self-start">
         <img
@@ -82,7 +85,7 @@ const RecipeOtherProfile = forwardRef(({ title, image }, ref) => {
       </div>
 
       <img
-        src={`/images/${image}`}
+        src={image}
         alt={title}
         onError={(e) => {
           e.target.onerror = null;

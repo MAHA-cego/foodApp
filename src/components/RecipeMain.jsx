@@ -6,7 +6,7 @@ import arrow from "../assets/iconmonstr-arrow-right-lined.svg";
 
 gsap.registerPlugin(ScrollTrigger);
 
-function RecipeMain({ date, title, image, id }) {
+function RecipeMain({ id, date, title, image, creatorName, creatorId }) {
   const [hovered, setHovered] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [showImage, setShowImage] = useState(false);
@@ -104,21 +104,27 @@ function RecipeMain({ date, title, image, id }) {
           setShowImage(false);
         }}
         onMouseMove={handleMouseMove}
-        onClick={handleClick}
       >
         <p className="col-start-1 inline-block content-center text-darkGrey">
           {formattedDate}
         </p>
-        <button className="col-start-2 justify-self-start border h-[2.3rem] w-24 rounded-lg self-center hover:cursor-pointer">
-          User
+        <button
+          className="col-start-2 justify-self-start border h-[2.3rem] w-24 rounded-lg self-center hover:cursor-pointer z-3"
+          onClick={() => navigate(`/profile/${creatorId}`)}
+        >
+          {creatorName}
         </button>
-        <h3 className="col-start-3 inline-block content-center font-medium hover:cursor-pointer">
+        <h3
+          className="col-start-3 inline-block content-center font-medium hover:cursor-pointer"
+          onClick={handleClick}
+        >
           {title || "Untitled Recipe"}
         </h3>
         <button
           className={`col-start-4 justify-self-end hover:cursor-pointer transition-all duration-300 ease-out ${
             hovered ? "rotate-90" : "rotate-0"
           }`}
+          onClick={handleClick}
         >
           <img src={arrow} alt="Search" width="30" height="30" />
         </button>

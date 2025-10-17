@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useAuth } from "../context/AuthContext";
@@ -10,10 +11,14 @@ import magnifier from "../assets/iconmonstr-magnifier-lined.svg";
 
 function ProfileMain() {
   const { user, token } = useAuth();
+  const navigate = useNavigate();
+
   const recipeRefs = useRef([]);
   const addRecipeRef = useRef(null);
 
   const [recipes, setRecipes] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortBy, setSortBy] = useState("chronological");
 
   useEffect(() => {
     if (!user) return;
@@ -35,6 +40,13 @@ function ProfileMain() {
 
     fetchRecipes();
   }, [token, user]);
+
+  const filteredRecipes = recipes
+    .filter((r) => r.title.toLowerCase().includes(searchQuery.toLowerCase()))
+    .sort((a, b) => {
+      if (sortBy === "alphabetical") return a.title.localeCompare(b.title);
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    });
 
   useEffect(() => {
     recipeRefs.current.forEach((el, i) => {
@@ -77,7 +89,11 @@ function ProfileMain() {
         }
       );
     }
-  }, [recipes]);
+  }, [filteredRecipes]);
+
+  const handleAddRecipe = () => {
+    navigate("/newrecipe");
+  };
 
   return (
     <>
@@ -94,7 +110,15 @@ function ProfileMain() {
           <div className="col-start-1 mt-10 text-lg">
             <div>
               <p className="font-light italic">Sorting :</p>
-              <button>Alphabelical</button>
+              <button
+                onClick={() =>
+                  setSortBy((prev) =>
+                    prev === "chronological" ? "alphabetical" : "chronological"
+                  )
+                }
+              >
+                {sortBy === "chronological" ? "Chronological" : "Alphabetical"}
+              </button>
             </div>
           </div>
           <div className="col-start-2 mt-10 text-lg">
@@ -110,6 +134,8 @@ function ProfileMain() {
                   autoComplete="off"
                   spellCheck="false"
                   placeholder="..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                   className="border-none outline-none w-full"
                 />
                 <button>
@@ -120,7 +146,7 @@ function ProfileMain() {
           </div>
           <div className="col-start-4">
             <ul>
-              {recipes.map((recipe, index) => (
+              {filteredRecipes.map((recipe, index) => (
                 <RecipeProfile
                   key={recipe.id}
                   title={recipe.title}
@@ -130,7 +156,8 @@ function ProfileMain() {
               ))}
               <li
                 ref={addRecipeRef}
-                className="h-20 grid grid-cols-[1fr_4fr] border-b group"
+                className="h-20 grid grid-cols-[1fr_4fr] border-b group hover:cursor-pointer"
+                onClick={handleAddRecipe}
               >
                 <button className="col-start-1">
                   <img

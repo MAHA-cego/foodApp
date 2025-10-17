@@ -41,7 +41,7 @@ createRoot(document.getElementById("root")).render(
               </ProtectedRoute>
             }
           />
-          <Route path="/profileother" element={<ProfileOtherPage />} />
+          <Route path="/profile/:userId" element={<ProfileOtherPage />} />
           <Route path="/titletest" element={<TitleTest />} />
         </Routes>
       </AuthProvider>
