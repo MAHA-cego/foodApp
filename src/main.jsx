@@ -6,6 +6,7 @@ import "./index.css";
 import App from "./App.jsx";
 import MainPage from "./pages/MainPage.jsx";
 import NewRecipePage from "./pages/NewRecipePage.jsx";
+import EditRecipePage from "./pages/EditRecipePage.jsx";
 import RecipePage from "./pages/RecipePage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
@@ -27,6 +28,14 @@ createRoot(document.getElementById("root")).render(
             element={
               <ProtectedRoute>
                 <NewRecipePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/editrecipe/:id"
+            element={
+              <ProtectedRoute>
+                <EditRecipePage />
               </ProtectedRoute>
             }
           />

@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useAuth } from "../context/AuthContext";
+import LogoutConfirmation from "./LogoutConfirmation.jsx";
+import DeleteConfirmation from "./DeleteConfirmation.jsx";
 gsap.registerPlugin(ScrollTrigger);
 
 import RecipeProfile from "./RecipeProfile.jsx";
@@ -10,7 +12,7 @@ import plus from "../assets/iconmonstr-x-mark-lined.svg";
 import magnifier from "../assets/iconmonstr-magnifier-lined.svg";
 
 function ProfileMain() {
-  const { user, token } = useAuth();
+  const { user, token, logout } = useAuth();
   const navigate = useNavigate();
 
   const recipeRefs = useRef([]);
@@ -19,6 +21,10 @@ function ProfileMain() {
   const [recipes, setRecipes] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("chronological");
+
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [recipeToDelete, setRecipeToDelete] = useState(false);
 
   useEffect(() => {
     if (!user) return;
@@ -95,16 +101,62 @@ function ProfileMain() {
     navigate("/newrecipe");
   };
 
+  const handleEdit = (id) => {
+    navigate(`/editrecipe/${id}`);
+  };
+
+  const confirmDelete = (id) => {
+    setRecipeToDelete(id);
+    setShowDeleteModal(true);
+  };
+
+  const handleDeleteConfirmed = async () => {
+    if (!recipeToDelete) return;
+
+    try {
+      const res = await fetch(`/api/recipes/${recipeToDelete}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.message || "Failed to delete recipe");
+      }
+
+      setRecipes((prev) => prev.filter((r) => r.id !== recipeToDelete));
+    } catch (err) {
+      console.error("Error deleting recipe:", err);
+    } finally {
+      setShowDeleteModal(false);
+      setRecipeToDelete(null);
+    }
+  };
+
+  const handleLogoutClick = () => setShowLogoutModal(true);
+  const handleConfirmLogout = () => {
+    logout();
+    setShowLogoutModal(false);
+    navigate("/login");
+  };
+  const handleCancelLogout = () => setShowLogoutModal(false);
+
   return (
     <>
       <div className="mt-84 flex flex-col gap-30 mx-10">
-        <div className="grid grid-cols-[1fr_1fr]">
+        <div className="grid grid-cols-[6fr_5fr_1fr]">
           <h1 className="col-start-1 text-[15rem] leading-none font-light -translate-x-[1.45rem]">
             Recipes
           </h1>
           <p className="col-start-2 text-3xl text-darkGrey font-light">
             ({user ? user.username : "Loading..."})
           </p>
+          <button
+            className="col-start-3 font-light text-lg underline self-end -translate-y-[1.45rem] hover:cursor-pointer"
+            onClick={handleLogoutClick}
+          >
+            Log out
+          </button>
         </div>
         <div className="border-t-3 grid grid-cols-[2fr_2fr_1fr_7fr]">
           <div className="col-start-1 mt-10 text-lg">
@@ -151,6 +203,8 @@ function ProfileMain() {
                   key={recipe.id}
                   title={recipe.title}
                   image={recipe.image}
+                  onEdit={() => handleEdit(recipe.id)}
+                  onDelete={() => confirmDelete(recipe.id)}
                   ref={(el) => (recipeRefs.current[index] = el)}
                 />
               ))}
@@ -174,6 +228,21 @@ function ProfileMain() {
           </div>
         </div>
       </div>
+      {showLogoutModal && (
+        <LogoutConfirmation
+          onConfirm={handleConfirmLogout}
+          onCancel={handleCancelLogout}
+        />
+      )}
+      {showDeleteModal && (
+        <DeleteConfirmation
+          onConfirm={handleDeleteConfirmed}
+          onCancel={() => {
+            setShowDeleteModal(false);
+            setRecipeToDelete(null);
+          }}
+        />
+      )}
     </>
   );
 }

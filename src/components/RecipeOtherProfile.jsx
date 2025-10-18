@@ -13,7 +13,7 @@ const RecipeOtherProfile = forwardRef(({ id, title, image }, ref) => {
   const [showImage, setShowImage] = useState(false);
 
   const containerRef = useRef(null);
-  const recipeRef = useRef(null);
+  //const recipeRef = useRef(null);
 
   const navigate = useNavigate();
 

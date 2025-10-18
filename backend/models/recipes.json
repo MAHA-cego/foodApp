@@ -50,29 +50,39 @@
     "createdAt": "2025-10-16T16:32:32.893Z"
   },
   {
-    "id": 1760648029037,
-    "title": "1",
-    "description": "1",
-    "image": "/uploads/1760648029023-steak_mushroom.jpg",
+    "id": 1760720291712,
+    "title": "Selwa",
+    "description": "Unique Arab Goddess",
+    "image": "/uploads/1760720291462-P1000716.JPG",
     "ingredients": [
-      "1"
+      "Apple",
+      "Honey",
+      "Msemen"
     ],
     "instructions": [
       {
-        "subtitle": "1",
-        "instruction": "1"
+        "subtitle": "Lure the goddess",
+        "instruction": "Put honey on an apple and set it on a table..."
+      },
+      {
+        "subtitle": "Offer the food",
+        "instruction": "Be sure it's well presented and offer it to the goddess while looking at the ground..."
+      },
+      {
+        "subtitle": "Enjoy",
+        "instruction": "Enjoy the newfound goddess"
       }
     ],
     "nutrition": {
-      "calories": "1",
+      "calories": "20",
       "protein": "1",
-      "fat": "1",
-      "carbohydrates": "1",
-      "fiber": "1",
-      "sodium": "1"
+      "fat": "0",
+      "carbohydrates": "0",
+      "fiber": "10",
+      "sodium": "10"
     },
     "servings": "1",
     "userId": 1760625512895,
-    "createdAt": "2025-10-16T20:53:49.037Z"
+    "createdAt": "2025-10-17T16:58:11.712Z"
   }
 ]

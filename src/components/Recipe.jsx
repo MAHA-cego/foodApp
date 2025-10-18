@@ -42,6 +42,7 @@ function Recipe() {
             <img
               src={recipe.image || "/image/placeholder.png"}
               alt={recipe.title}
+              className="w-full aspect-square object-cover"
               onError={(e) => {
                 e.target.onerror = null;
                 e.target.src = "/images/placeholder.png";

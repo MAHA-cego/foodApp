@@ -2,11 +2,10 @@ import React, { useState, useEffect, useRef, forwardRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import arrow from "../assets/iconmonstr-arrow-right-lined.svg";
-import eggFriedRiceImg from "../assets/egg-fried-rice-main-preview.webp";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const RecipeProfile = forwardRef(({ title, image }, ref) => {
+const RecipeProfile = forwardRef(({ title, image, onDelete, onEdit }, ref) => {
   const [hovered, setHovered] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [imgOffset, setImgOffset] = useState({ x: 0, y: 0 });
@@ -48,8 +47,6 @@ const RecipeProfile = forwardRef(({ title, image }, ref) => {
     return () => cancelAnimationFrame(anim);
   }, [mousePos, hovered]);
 
-  console.log(image);
-
   return (
     <div
       ref={(el) => {
@@ -85,8 +82,13 @@ const RecipeProfile = forwardRef(({ title, image }, ref) => {
             hovered ? "opacity-100" : "opacity-0"
           }`}
         >
-          <button className="hover:cursor-pointer underline">Edit</button>
-          <button className="text-darkGrey hover:cursor-pointer underline decoration-darkGrey">
+          <button className="hover:cursor-pointer underline" onClick={onEdit}>
+            Edit
+          </button>
+          <button
+            className="text-darkGrey hover:cursor-pointer underline decoration-darkGrey"
+            onClick={onDelete}
+          >
             Delete
           </button>
         </div>
